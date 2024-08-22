@@ -6,10 +6,15 @@ import two from "@brainlet/hat.png";
 import three from "@brainlet/base-degen.png";
 import four from "@brainlet/hang.png";
 
-export default function LongComponent() {
+export default function Buddies() {
   return (
-    <div className="w-full mt-[400px] h-fit">
-      <Image src={bg} alt="bg" width={1000} className="w-screen" />
+    <div className="inset-0 relative">
+      <Image
+        src={one}
+        alt="bg"
+        width={500}
+        className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100]  bottom-0"
+      />
     </div>
   );
 }

@@ -15,6 +15,15 @@ const config: Config = {
         "duru-sans": ["var(--duru-sans)"],
         "rock-salt": ["var(--rock-salt)"],
       },
+      screens: {
+        xs: "390px",
+        sm: "480px",
+        md: "640px",
+        lg: "768px",
+        xl: "1024px",
+        "2xl": "1280px",
+        "3xl": "1536px",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

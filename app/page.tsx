@@ -13,9 +13,11 @@ import brainBottom from "@brainlet/animation/brain-bottom.png";
 import brainDisconnected from "@brainlet/animation/brain-disconnected.png";
 import water from "@brainlet/animation/water.png";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { duruSans, notoSans, patrickHand, rockSalt, sue } from "./fonts";
 import LongComponent from "./components/LongComponent";
+import mainText from "@brainlet/animation/main-text.png";
+import Buddies from "./components/Buddies";
 const spring = {
   stiffness: 300,
   damping: 60,
@@ -43,40 +45,62 @@ export default function Home() {
   }, [sliceCount]);
 
   return (
-    <main className="flex min-h-screen overflow-clip flex-col items-center justify-center p-40">
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={sliceSuccess ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-          delay: 0.3,
-        }}
-        className={`${patrickHand.className} flex flex-col items-center justify-self-center font-[900] text-9xl text-[#1EFF1E]`}
-      >
-        <span className="">BRAINLET</span>
-        <span className={`text-[#53269E] text-4xl ${sue.className}`}>
-          on degen chain
-        </span>
-      </motion.div>
+    <main className="flex relative min-h-screen overflow-clip flex-col items-center justify-center">
+      <Buddies />
+      <AnimatePresence>
+        {sliceSuccess && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
+              delay: 0.3,
+            }}
+            className={`${patrickHand.className} absolute top-[10%] -translate-x-full flex flex-col items-center justify-self-center font-[900] text-7xl lg:text-9xl text-[#1EFF1E]`}
+          >
+            <span className="">BRAINLET</span>
+            <span className={`text-[#53269E] text-3xl ${rockSalt.className}`}>
+              on degen chain
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <>
         <motion.div
           whileHover="hover"
           whileTap="hover"
           onMouseDown={() => setMouseDown(true)}
+          onTouchStart={() => setMouseDown(true)}
+          onTouchEnd={() => setMouseDown(false)}
           onMouseUp={() => setMouseDown(false)}
           onClick={() => !sliceSuccess && setSliceCount(sliceCount + 1)}
           variants={container}
           className="relative "
         >
           {!sliceSuccess && (
-            <div
-              className={`text-2xl ${notoSans.className} text-center absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 font-bold `}
+            <motion.div
+              variants={explain}
+              className={`text-2xl ${notoSans.className} text-center absolute left-1/2 top-0 -translate-x-1/2 translate-y-1/2 font-bold `}
             >
               cut to start
-            </div>
+            </motion.div>
           )}
+          <AnimatePresence>
+            {sliceSuccess && (
+              <motion.div
+                initial={{ x: 30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{
+                  duration: 0.5,
+                }}
+                className={`absolute -left-2 top-5 z-[10] -translate-y-1/2 font-bold`}
+              >
+                <Image src={mainText} alt="Brainlet" width={220} height={220} />
+              </motion.div>
+            )}
+          </AnimatePresence>
           <Image src={brainlet} alt="Brainlet" width={400} height={400} />
           <motion.div className="absolute left-0 top-0 z-[2]">
             <Image src={hat} alt="Brainlet" width={400} height={400} />
@@ -166,10 +190,18 @@ export default function Home() {
           )}
         </motion.div>
       </>
-      <LongComponent />
+      {/* <LongComponent /> */}
     </main>
   );
 }
+const explain = {
+  hover: {
+    opacity: 0,
+  },
+  notHover: {
+    opacity: 100,
+  },
+};
 
 const brains: Variants = {
   hover: {
