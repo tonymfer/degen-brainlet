@@ -30,7 +30,7 @@ export default function Home() {
   const [sliceCount, setSliceCount] = useState(0);
   const [sliceSuccess, setSliceSuccess] = useState(false);
 
-  const [play, data] = useSound("/public/sounds/brainlet-bgm-lofi.mp3", {
+  const [play, data] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
     loop: true,
     volume: 0.5,
   });
