@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        "patrick-hand": ["var(--patrick-hand)"],
+        "noto-sans": ["var(--noto-sans)"],
+        "sue-ellen-francisco": ["var(--sue-ellen-francisco)"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
