@@ -24,8 +24,6 @@ const spring = {
 };
 
 export default function Home() {
-  const ref = useRef<HTMLAudioElement | null>(null);
-  const [clicked, setClicked] = useState(false);
   const [mouseDown, setMouseDown] = useState(false);
   const [sliceCount, setSliceCount] = useState(0);
   const [sliceSuccess, setSliceSuccess] = useState(false);
@@ -36,7 +34,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (7 <= sliceCount && !sliceSuccess) {
+    if (4 <= sliceCount && !sliceSuccess) {
       setSliceSuccess(true);
       play?.();
     }
