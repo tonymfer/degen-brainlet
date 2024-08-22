@@ -14,7 +14,8 @@ import brainDisconnected from "@brainlet/animation/brain-disconnected.png";
 import water from "@brainlet/animation/water.png";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { duruSans, notoSans, patrickHand, rockSalt, sue } from "./layout";
+import { duruSans, notoSans, patrickHand, rockSalt, sue } from "./fonts";
+import LongComponent from "./components/LongComponent";
 const spring = {
   stiffness: 300,
   damping: 60,
@@ -42,13 +43,22 @@ export default function Home() {
   }, [sliceCount]);
 
   return (
-    <main className="flex min-h-screen overflow-clip flex-col items-center justify-center pb-40">
+    <main className="flex min-h-screen overflow-clip flex-col items-center justify-center p-40">
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={sliceSuccess ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
-        className={`${patrickHand.className} font-[900] text-8xl text-black`}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+          delay: 0.3,
+        }}
+        className={`${patrickHand.className} flex flex-col items-center justify-self-center font-[900] text-9xl text-[#1EFF1E]`}
       >
-        BRAINLET ON L3
+        <span className="">BRAINLET</span>
+        <span className={`text-[#53269E] text-4xl ${sue.className}`}>
+          on degen chain
+        </span>
       </motion.div>
       <>
         <motion.div
@@ -60,6 +70,13 @@ export default function Home() {
           variants={container}
           className="relative "
         >
+          {!sliceSuccess && (
+            <div
+              className={`text-2xl ${notoSans.className} text-center absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 font-bold `}
+            >
+              cut to start
+            </div>
+          )}
           <Image src={brainlet} alt="Brainlet" width={400} height={400} />
           <motion.div className="absolute left-0 top-0 z-[2]">
             <Image src={hat} alt="Brainlet" width={400} height={400} />
@@ -149,11 +166,7 @@ export default function Home() {
           )}
         </motion.div>
       </>
-      {!sliceSuccess && (
-        <div className={`text-2xl ${notoSans.className} font-bold `}>
-          slice to start
-        </div>
-      )}
+      <LongComponent />
     </main>
   );
 }

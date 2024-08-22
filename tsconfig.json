@@ -20,7 +20,6 @@
     "paths": {
       "@/*": ["./*"],
       "@sounds/*": ["./public/sounds/*"],
-      "@assets/*": ["./public/*"],
       "@brainlet/*": ["./public/brainlet/*"],
     }
   },
