@@ -82,7 +82,7 @@ export default function Home() {
           {!sliceSuccess && (
             <motion.div
               variants={explain}
-              className={`text-2xl ${notoSans.className} text-center absolute left-1/2 top-0 -translate-x-1/2 translate-y-1/2 font-bold `}
+              className={`text-2xl ${notoSans.className} text-center absolute left-[60%] top-0 -translate-x-1/2 translate-y-1/2 font-bold `}
             >
               cut to start
             </motion.div>
