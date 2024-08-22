@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
-import bgMusic from "../public/sounds/brainlet-bgm-lofi.mp3";
+import bgMusic from "@sounds/brainlet-bgm-lofi.mp3";
 import brainlet from "@brainlet/animation/brainlet.png";
 import hat from "@brainlet/animation/hat.png";
 import hatTopInner from "@brainlet/animation/hat-top-inner.png";
