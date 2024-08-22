@@ -11,44 +11,44 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const patrickHand = Patrick_Hand({
+export const patrickHand = Patrick_Hand({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
   variable: "--patrick-hand",
 });
 
-const rockSalt = Rock_Salt({
+export const rockSalt = Rock_Salt({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
   variable: "--rock-salt",
 });
 
-const notoSans = Noto_Sans({
+export const notoSans = Noto_Sans({
   weight: ["400", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
   variable: "--noto-sans",
 });
-const duruSans = Duru_Sans({
+export const duruSans = Duru_Sans({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
   variable: "--duru-sans",
 });
 
-const sue = Sue_Ellen_Francisco({
+export const sue = Sue_Ellen_Francisco({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
   variable: "--sue-ellen-francisco",
 });
 
-export const metadata: Metadata = {
-  title: "L3 Brainlets",
-  description: "",
-};
+// export const metadata: Metadata = {
+//   title: "L3 Brainlets",
+//   description: "",
+// };
 
 export default function RootLayout({
   children,
@@ -57,11 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${duruSans.className} ${sue.className} ${notoSans.className} ${patrickHand.className} ${inter.className} ${rockSalt.className} `}
-      >
-        {children}
-      </body>
+      <body className={``}>{children}</body>
     </html>
   );
 }
