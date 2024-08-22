@@ -20,17 +20,18 @@ const spring = {
 
 export default function Home() {
   const ref = useRef<HTMLAudioElement | null>(null);
-  const [play] = useSound(bgMusic);
+  const [play, data] = useSound(bgMusic);
 
   useEffect(() => {
-    play();
-  }, []);
+    if (data) play();
+  }, [data]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center pb-40">
       <motion.div
         whileHover="hover"
         whileTap="hover"
+        // onHoverStart={() => play?.()}
         variants={container}
         className="relative"
       >
