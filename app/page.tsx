@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
-import bgMusic from "@sounds/brainlet-bgm-lofi.mp3";
+import bgMusic from "../public/sounds/brainlet-bgm-lofi.mp3";
 import brainlet from "@brainlet/animation/brainlet.png";
 import hat from "@brainlet/animation/hat.png";
 import hatTopInner from "@brainlet/animation/hat-top-inner.png";
@@ -22,8 +22,6 @@ const spring = {
   stiffness: 300,
   damping: 60,
 };
-
-const randomSliceNumber = Math.floor(Math.random() * 10) + 1;
 
 export default function Home() {
   const ref = useRef<HTMLAudioElement | null>(null);
@@ -190,7 +188,7 @@ export default function Home() {
           )}
         </motion.div>
       </>
-      {/* <LongComponent /> */}
+      {sliceSuccess && <LongComponent />}
     </main>
   );
 }
