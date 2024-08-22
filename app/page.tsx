@@ -5,7 +5,7 @@ import bgMusic from "@sounds/bg-music.mp3";
 import brainlet from "@brainlet/animation/brainlet.png";
 import hat from "@brainlet/animation/hat.png";
 import hatTopInner from "@brainlet/animation/hat-top-inner.png";
-import hatTopOuter from "@brainlet/animation/hat-top-outer-small.png";
+import hatTopOuter from "@brainlet/animation/hat-top-outer.png";
 import scissorClose from "@brainlet/animation/scissor-close.png";
 import scissorOpen from "@brainlet/animation/scissor-open.png";
 import brainTop from "@brainlet/animation/brain-top.png";
@@ -34,7 +34,7 @@ export default function Home() {
   }, [play]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center pb-40">
+    <main className="flex min-h-screen overflow-clip flex-col items-center justify-center pb-40">
       {!clicked ? (
         <button
           onClick={() => {
@@ -69,12 +69,12 @@ export default function Home() {
             <motion.div
               variants={openHat}
               style={{
-                transformOrigin: "95% 20%",
+                transformOrigin: "73% 24%",
               }}
-              className="absolute left-1/2 top-[21%] z-[1]"
+              className="absolute left-0 top-0 z-[1]"
               transition={spring}
             >
-              <Image src={hatTopOuter} alt="Brainlet" width={120} />
+              <Image src={hatTopOuter} alt="Brainlet" width={500} />
             </motion.div>
             <motion.div
               variants={brains}
