@@ -12,6 +12,8 @@ const config: Config = {
         "patrick-hand": ["var(--patrick-hand)"],
         "noto-sans": ["var(--noto-sans)"],
         "sue-ellen-francisco": ["var(--sue-ellen-francisco)"],
+        "duru-sans": ["var(--duru-sans)"],
+        "rock-salt": ["var(--rock-salt)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

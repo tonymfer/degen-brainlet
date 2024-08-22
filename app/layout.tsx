@@ -5,6 +5,7 @@ import {
   Rock_Salt,
   Sue_Ellen_Francisco,
   Noto_Sans,
+  Duru_Sans,
 } from "next/font/google";
 import "./globals.css";
 
@@ -17,11 +18,24 @@ const patrickHand = Patrick_Hand({
   variable: "--patrick-hand",
 });
 
+const rockSalt = Rock_Salt({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--rock-salt",
+});
+
 const notoSans = Noto_Sans({
   weight: ["400", "700", "800", "900"],
   subsets: ["latin"],
   display: "swap",
   variable: "--noto-sans",
+});
+const duruSans = Duru_Sans({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--duru-sans",
 });
 
 const sue = Sue_Ellen_Francisco({
@@ -44,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sue.className} ${notoSans.className} ${patrickHand.className} ${inter.className}`}
+        className={`${duruSans.className} ${sue.className} ${notoSans.className} ${patrickHand.className} ${inter.className} ${rockSalt.className} `}
       >
         {children}
       </body>
