@@ -14,7 +14,7 @@ import brainDisconnected from "@brainlet/animation/brain-disconnected.png";
 import water from "@brainlet/animation/water.png";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { duruSans, notoSans, patrickHand, rockSalt } from "./layout";
+import { duruSans, notoSans, patrickHand, rockSalt, sue } from "./layout";
 const spring = {
   stiffness: 300,
   damping: 60,
@@ -43,9 +43,13 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen overflow-clip flex-col items-center justify-center pb-40">
-      <div className={`${duruSans.className} font-[900] text-5xl text-black`}>
-        Brainlet on L3
-      </div>
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={sliceSuccess ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
+        className={`${patrickHand.className} font-[900] text-8xl text-black`}
+      >
+        BRAINLET ON L3
+      </motion.div>
       <>
         <motion.div
           whileHover="hover"
@@ -145,9 +149,11 @@ export default function Home() {
           )}
         </motion.div>
       </>
-      <div className={`text-2xl ${notoSans.className} font-bold `}>
-        slice to start
-      </div>
+      {!sliceSuccess && (
+        <div className={`text-2xl ${notoSans.className} font-bold `}>
+          slice to start
+        </div>
+      )}
     </main>
   );
 }
