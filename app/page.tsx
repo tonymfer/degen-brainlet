@@ -28,10 +28,16 @@ export default function Home() {
   const [sliceCount, setSliceCount] = useState(0);
   const [sliceSuccess, setSliceSuccess] = useState(false);
 
-  const [play, data] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
+  const [play, { pause, stop }] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
     loop: true,
-    volume: 0.5,
   });
+
+  useEffect(() => {
+    if (pause) pause();
+    return () => {
+      stop();
+    };
+  }, []);
 
   return (
     <main className="flex relative min-h-screen overflow-clip flex-col items-center justify-center">
@@ -67,7 +73,11 @@ export default function Home() {
         onClick={() => {
           if (sliceCount >= 4) {
             setSliceSuccess(true);
-            play?.();
+            pause();
+
+            play({
+              forceSoundEnabled: true,
+            });
           } else {
             setSliceCount(sliceCount + 1);
           }
@@ -195,8 +205,7 @@ export default function Home() {
           </motion.div>
         )}
       </motion.div>
-
-      {/* {sliceSuccess && <LongComponent />} */}
+      {sliceSuccess && <LongComponent />}
     </main>
   );
 }
