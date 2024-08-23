@@ -33,13 +33,6 @@ export default function Home() {
     volume: 0.5,
   });
 
-  useEffect(() => {
-    if (4 <= sliceCount && !sliceSuccess) {
-      setSliceSuccess(true);
-      play?.();
-    }
-  }, [sliceCount]);
-
   return (
     <main className="flex relative min-h-screen overflow-clip flex-col items-center justify-center">
       <Buddies />
@@ -71,9 +64,16 @@ export default function Home() {
         onTouchStart={() => setMouseDown(true)}
         onTouchEnd={() => setMouseDown(false)}
         onMouseUp={() => setMouseDown(false)}
-        onClick={() => !sliceSuccess && setSliceCount(sliceCount + 1)}
+        onClick={() => {
+          if (sliceCount >= 4) {
+            setSliceSuccess(true);
+            play?.();
+          } else {
+            setSliceCount(sliceCount + 1);
+          }
+        }}
         variants={container}
-        className="relative "
+        className="relative"
       >
         {!sliceSuccess && (
           <motion.div
