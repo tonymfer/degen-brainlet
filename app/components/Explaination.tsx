@@ -4,6 +4,7 @@ import plainBrainlet from "@brainlet/animation/brainlet.png";
 import logo from "@brainlet/logo.png";
 import degen from "@brainlet/degen@2x.png";
 import { comicSans } from "../fonts";
+import { motion } from "framer-motion";
 
 export default function Explaination() {
   return (
@@ -31,7 +32,12 @@ export default function Explaination() {
         />
       </div>
       <span className={`${comicSans.className} text-[7vw]`}>=</span>
-      <div className="flex flex-col items-center">
+      <motion.div
+        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 100 }}
+        transition={{ duration: 0.5, delay: 2 }}
+        className="flex flex-col items-center"
+      >
         <Image
           src={logo}
           alt="brainlet"
@@ -42,7 +48,7 @@ export default function Explaination() {
         <span className={`${comicSans.className} text-[3vw] leading-none mt-2`}>
           🤤
         </span>
-      </div>
+      </motion.div>
       <span
         className={`${comicSans.className} absolute bottom-0 left-1/2 -translate-x-1/2 text-[2vw] mt-2`}
       >

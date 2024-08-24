@@ -280,9 +280,9 @@ export default function Home() {
           <Link
             href="https://mint.club/token/degen/BRAINLET"
             passHref
-            className={`w-full text-[8vw] text-center px-5 sm:px-10 mt-5 ${comicSansBold.className} text-blue-600`}
+            className={`w-full px-[10%] text-[8vw] text-center mt-5 ${comicSansBold.className} text-blue-600`}
           >
-            <div className=" p-10 bg-gradient-to-r rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]">
+            <div className=" p-10 bg-gradient-to-r max-w-full rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]">
               brrruuuuuuuuuuy
             </div>
           </Link>
