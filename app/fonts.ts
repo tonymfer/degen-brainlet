@@ -4,13 +4,32 @@ import {
   Noto_Sans,
   Duru_Sans,
   Sue_Ellen_Francisco,
+  Just_Another_Hand,
 } from "next/font/google";
+import localFont from "next/font/local";
 
 export const patrickHand = Patrick_Hand({
   weight: ["400"],
   subsets: ["latin"],
   display: "swap",
   variable: "--patrick-hand",
+});
+
+export const comicSans = localFont({
+  src: "./fonts/sans/Ldfcomicsans-jj7l.ttf",
+  display: "swap",
+});
+
+export const comicSansBold = localFont({
+  src: "./fonts/sans/Ldfcomicsansbold-zgma.ttf",
+  display: "swap",
+});
+
+export const justAnotherHand = Just_Another_Hand({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--just-another-hand",
 });
 
 export const rockSalt = Rock_Salt({
