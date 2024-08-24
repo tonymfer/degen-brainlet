@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export default function Buddies() {
   return (
-    <div className="inset-0 absolute w-screen h-screen bg-transparent">
+    <div className="inset-0 rotate-180 md:rotate-0 absolute w-screen h-screen bg-transparent">
       {[one, two, three, four].map((src, index) => (
         <motion.div
           key={index}
@@ -24,12 +24,12 @@ export default function Buddies() {
           }}
           className={`absolute ${
             index === 0
-              ? "left-[4%] w-[30vw] -bottom-5 z-[100]"
+              ? "left-[4%] w-[40vw] md:w-[30vw] -bottom-5 z-[100]"
               : index === 1
-              ? "left-[27%] w-[15vw] -bottom-5 z-[100]"
+              ? "left-[27%] w-[30vw] md:w-[20vw] -bottom-5 z-[100]"
               : index === 2
-              ? "left-[55%] w-[30vw] -bottom-5 z-[100]"
-              : "scale-x-[-1] left-[80%] w-[20vw] -bottom-5 z-[100]"
+              ? "left-1/3 md:left-[55%] w-[40vw] md:w-[40vw] -bottom-5 z-[100]"
+              : "scale-x-[-1] left-3/4 md:left-[80%] w-[40vw] md:w-[20vw] -bottom-5 z-[100]"
           }`}
         >
           <Image src={src} alt="bg" width={500} />

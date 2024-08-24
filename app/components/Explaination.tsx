@@ -35,7 +35,7 @@ export default function Explaination() {
       <motion.div
         whileInView={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 100 }}
-        transition={{ duration: 0.5, delay: 2 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
         className="flex flex-col items-center"
       >
         <Image

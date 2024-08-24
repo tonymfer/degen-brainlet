@@ -56,21 +56,21 @@ export default function Home() {
         <AnimatePresence>
           {sliceSuccess && (
             <motion.div
-              initial={{ y: 100, opacity: 0, height: 0 }}
-              animate={{ y: 0, opacity: 1, height: "fit-content" }}
+              initial={{ y: 0, opacity: 0, height: 0 }}
+              animate={{ y: -100, opacity: 1, height: "fit-content" }}
               transition={{
                 type: "spring",
                 stiffness: 300,
                 damping: 30,
                 delay: 0.3,
               }}
-              className={`${comicSansBold.className} flex pb-40 sm:pb-[400px] leading-none flex-col items-center font-[900] text-6xl sm:text-[170px] text-[#1EFF1E]`}
+              className={`${comicSansBold.className} flex tracking-wider leading-none flex-col items-center font-[900] text-6xl sm:text-[170px] text-[#1EFF1E]`}
             >
               <span className="">BRAINLET</span>
               <span
-                className={`text-black text-3xl sm:text-6xl leading-none tracking-wide ${sue.className}`}
+                className={`text-black text-3xl sm:text-6xl leading-none font-thin tracking-widest ${justAnotherHand.className}`}
               >
-                on Base Chain L3
+                on DegenL3
               </span>
             </motion.div>
           )}
@@ -81,7 +81,7 @@ export default function Home() {
           whileTap="hover"
           onMouseDown={() => setMouseDown(true)}
           onTouchStart={() => setMouseDown(true)}
-          onTouchEnd={() => setMouseDown(false)}
+          onTouchEnd={() => setTimeout(() => setMouseDown(false), 1000)}
           onMouseUp={() => setMouseDown(false)}
           onClick={() => {
             if (sliceCount >= 2) {
@@ -245,13 +245,17 @@ export default function Home() {
                 >
                   <span className=" text-lg">click to copy👇</span>
                 </div>
-                <div className="flex group text-[2.5vw] leading-none items-end gap-1 text-black">
-                  <span className="text-black">$BRAINLET(L3):</span>
-                  0xC97e22D7Dc2aBcC96964f6B7
-                  <span className="group-hover:opacity-0 text-[1.5vw] leading-normal group-hover:hidden transition-all overflow-hidden">
-                    ...umm🤤...
+                <div className="flex flex-col items-center md:flex-row group text-[3.3vw] md:text-[2.5vw] leading-none md:items-end gap-1 text-black">
+                  <span className="text-black text-3xl md:text-[2.5vw] text-center">
+                    $BRAINLET(L3):
                   </span>
-                  E8717e9c960758d4
+                  <div className="flex items-end md:items-center text-center">
+                    0xC97e22D7Dc2aBcC96964f6B7
+                    <span className="group-hover:opacity-0 text-[1.5vw] leading-normal group-hover:hidden transition-all overflow-hidden">
+                      ...umm🤤...
+                    </span>
+                    E8717e9c960758d4
+                  </div>
                 </div>
               </div>
               <div className="flex my-20 flex-col sm:flex-row gap-20 sm:gap-[80px] items-center text-5xl sm:text-[6vw] font-bold justify-center">
@@ -263,7 +267,7 @@ export default function Home() {
                   explooorer
                 </Link>
                 <Link
-                  href="https://"
+                  href="https://warpcast.com/~/channel/brainlet"
                   passHref
                   className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-[#916af3]`}
                 >
