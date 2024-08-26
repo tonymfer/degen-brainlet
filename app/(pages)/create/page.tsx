@@ -51,6 +51,32 @@ export default function CreatePage() {
           <div className="text-2xl font-bold text-black">1. Upload image</div>
           <input
             ref={uploadRef}
+            type="file"
+            className="hidden"
+            accept="image/jpg, image/jpeg, image/png, image/webp, image/gif, video/mp4"
+            multiple={false}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              const isVideo = file && file?.type?.startsWith("video");
+              const maxSize = isVideo ? 20 : 10;
+
+              if ((file?.size ?? 0) > maxSize * 1024 * 1024) {
+                toast(`Max size for media is ${maxSize}MB`);
+                e.target.value = "";
+                return;
+              }
+
+              if (file) {
+                setImageUrl(URL.createObjectURL(file));
+                setFile(file);
+              } else {
+                setImageUrl(null);
+                setFile(null);
+              }
+            }}
+          />
+          {/* <input
+            ref={uploadRef}
             className="hidden"
             type="file"
             accept="image/png, image/jpeg, image/gif, image/webp, image/jpg"
@@ -66,7 +92,7 @@ export default function CreatePage() {
               }
               e.currentTarget.value = "";
             }}
-          />
+          /> */}
 
           {imgUrl ? (
             <Image
@@ -98,7 +124,7 @@ export default function CreatePage() {
             className="border-b border-black bg-transparent p-2 text-center text-black outline-none"
             placeholder="dwr brainlet"
             value={username}
-            maxLength={15}
+            maxLength={24}
             onChange={(e) => {
               let v = e.target.value;
               const val = v

@@ -1,9 +1,9 @@
 import { mintclub, toNumber } from "mint.club-v2-sdk";
 import { useEffect, useState } from "react";
+import { useERC1155Image } from "./useERC1155Image";
 
 export type NftDetail = {
   name: string;
-  image: string;
   price: number;
   sold: number;
   maxSupply: number;
@@ -14,6 +14,10 @@ export type NftDetail = {
 export default function useNft(symbolOrAddress?: string) {
   const [data, setData] = useState<NftDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const { image: nftUrl } = useERC1155Image({
+    address: data?.address,
+  });
+  console.log("nftUrl", nftUrl);
 
   async function fetchData() {
     if (!symbolOrAddress) {
@@ -39,22 +43,21 @@ export default function useNft(symbolOrAddress?: string) {
       //     toNumber(initialPrice, 18)) *
       //   100;
 
-      const imageHash = await Promise.race([
-        nft.getImageUri(),
-        new Promise<string>((_, reject) =>
-          setTimeout(() => reject(new Error("Timeout")), 5000)
-        ),
-      ]).catch((e) => {
-        console.error(e);
-        setLoading(false);
-        return "";
-      });
-      const imageUrl = mintclub.ipfs.hashToGatewayUrl(imageHash);
+      // const imageHash = await Promise.race([
+      //   nft.getImageUri(),
+      //   new Promise<string>((_, reject) =>
+      //     setTimeout(() => reject(new Error("Timeout")), 5000)
+      //   ),
+      // ]).catch((e) => {
+      //   console.error(e);
+      //   setLoading(false);
+      //   return "";
+      // });
+      // const imageUrl = mintclub.ipfs.hashToGatewayUrl(imageHash);
 
       setData({
         name,
         maxSupply: Number(maxSupply),
-        image: imageUrl,
         price: toNumber(priceForNextMint, 18),
         sold: Number(currentSupply),
         address: token,
@@ -74,5 +77,5 @@ export default function useNft(symbolOrAddress?: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [symbolOrAddress]);
 
-  return { data, refresh: fetchData, loading };
+  return { data, nftUrl, refresh: fetchData, loading };
 }

@@ -7,11 +7,13 @@ import useNftBalance from "@/hooks/useNftBalance";
 import { commify, shortenNumber } from "mint.club-v2-sdk";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
+import NftImage from "./NftImage";
 
 export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
   const [imageFailed, setImageFailed] = useState(false);
   const { tokenAddress } = props;
-  const { data, loading } = useNft(tokenAddress);
+  const { data, loading, nftUrl } = useNft(tokenAddress);
   const { balance } = useNftBalance(tokenAddress);
   const router = useRouter();
 
@@ -25,7 +27,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
     );
   }
 
-  const { image, price, sold, maxSupply, symbol } = data || {};
+  const { price, sold, maxSupply, symbol } = data || {};
 
   return (
     <div
@@ -46,20 +48,11 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
         {/* <div className="text-green-600">+{priceChange || 0}%</div> */}
       </div>
       <div className="flex flex-col w-full items-center">
-        {!imageFailed ? (
-          <img
-            className="w-full h-full md:w-[300px] aspect-square border-black border-2 md:h-[300px]"
-            src={image}
-            width={300}
-            height={300}
-            alt=""
-            onError={() => setImageFailed(true)}
-          />
-        ) : (
-          <div className="h-[300px] w-full flex items-center justify-center aspect-square border-2 border-black bg-green-500">
-            fetching Image...
-          </div>
-        )}
+        <NftImage
+          image={nftUrl}
+          size={300}
+          className="md:w-[300px] md:h-[300px]"
+        />
         {/* <div className="ml-3 flex flex-col">
           <div className="mt-2 text-sm text-gray-500">
             {abbreviateAddress(address)}

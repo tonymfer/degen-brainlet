@@ -18,8 +18,10 @@
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "sass": "^1.77.8",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.5.2",
     "use-sound": "^4.0.3",
+    "wagmi": "^2.12.7",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

@@ -1,39 +1,38 @@
 "use client";
 import Button from "@/components/Button";
 import Loading from "@/components/Loading";
+import NftImage from "@/components/NftImage";
 import { BRAINLET_TOKEN_ADDRESS } from "@/constants";
+import { comicSans } from "@/fonts";
 import useBuySell from "@/hooks/useBuySell";
 import useERC20Balance from "@/hooks/useERC20Balance";
-import useNftBalance from "@/hooks/useNftBalance";
 import useNft, { NftDetail } from "@/hooks/useNft";
+import useNftBalance from "@/hooks/useNftBalance";
 import useWallet from "@/hooks/useWallet";
-import { abbreviateAddress, customShortenNumber } from "@/utils/strings";
+import { useGlobalStore } from "@/stores/global";
 import {
   applyDecimals,
   commify,
   shortenNumber,
   uncommify,
 } from "mint.club-v2-sdk";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { comicSans, mferFont } from "@/fonts";
-import { useParams } from "next/navigation";
-import { useGlobalStore } from "@/stores/global";
-import Link from "next/link";
 
 export default function Detail() {
-  const [imageFailed, setImageFailed] = useState(false);
   const { symbol: _symbol } = useParams<{ symbol: string }>();
   const symbol = decodeURIComponent(_symbol);
 
-  const token = useNft(symbol);
+  const { data, loading, nftUrl, refresh } = useNft(symbol);
   const {
     balance,
     loadingBalance,
     refresh: refreshBalance,
   } = useNftBalance(symbol);
 
-  if (!token?.data) {
+  if (!data) {
     return (
       <div className="flex h-[208px] w-full items-center justify-center border border-gray-500/50 p-5">
         <Loading />
@@ -41,7 +40,7 @@ export default function Detail() {
     );
   }
 
-  const { name, image, price, sold, maxSupply, address } = token.data;
+  const { name, price, sold, maxSupply, address } = data || {};
 
   return (
     <div
@@ -70,23 +69,11 @@ export default function Detail() {
           {/* <div className="text-green-600">+{priceChange || 0}%</div> */}
         </div>
         <div className="flex flex-col w-full items-center">
-          {!imageFailed ? (
-            <img
-              className="w-[400px] aspect-square border-black border-2 h-[400px] md:w-[500px] md:h-[500px]"
-              src={image}
-              width={700}
-              height={700}
-              alt=""
-              onError={() => setImageFailed(true)}
-            />
-          ) : (
-            <div className="h-[400px] sm:h-[700px] w-full aspect-square border-2 border-black bg-primary/50" />
-          )}
-          {/* <div className="ml-3 flex flex-col">
-          <div className="mt-2 text-sm text-gray-500">
-            {abbreviateAddress(address)}
-          </div>
-        </div> */}
+          <NftImage
+            image={nftUrl}
+            size={500}
+            className="w-[400px] aspect-square border-black border-2 h-[400px] md:w-[500px] md:h-[500px]"
+          />
         </div>
         <div className="flex w-full items-center justify-between px-2 text-black">
           <div className="flex items-center text-center">
@@ -103,8 +90,8 @@ export default function Detail() {
         <BuySellButtons
           refreshBalance={refreshBalance}
           tokenAddress={address}
-          refresh={token.refresh}
-          data={token.data}
+          refresh={refresh}
+          data={data}
         />
       </div>
     </div>
@@ -193,7 +180,7 @@ function BuySellButtons(
         balance:{" "}
         <span className="mx-1 flex items-center text-black">
           {loadingKrw ? (
-            <Loading className="mx-1 inline-block" size={12} />
+            <div className="mx-1 inline-block">loading...</div>
           ) : (
             shortenNumber(krwBalance) + " $BRAINLET"
           )}{" "}
