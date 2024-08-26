@@ -16,11 +16,10 @@ export default function useNftList() {
           end: 10000,
         });
 
-      console.log({
-        list,
-      });
-
-      useGlobalStore.setState({ list });
+      const filteredList = list.filter(
+        (address) => address !== "0x1d1854DC3B78Bb9926DE929A4CddE4e44aF76F65"
+      );
+      useGlobalStore.setState({ list: filteredList });
     } catch (e) {
       console.error(e);
       fetchList();

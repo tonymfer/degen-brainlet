@@ -46,8 +46,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex relative w-full h-[calc(100vh-80px)] overflow-clip flex-col items-center justify-center">
-      <div className="flex flex-col relative h-[100lvh] items-center w-full justify-center">
+    <main className="flex relative w-full min-h-screen overflow-clip flex-col items-center justify-center">
+      <div className="flex flex-col relative h-[100vh] items-center w-full justify-center">
         <AnimatePresence>
           {sliceSuccess && (
             <motion.div
@@ -71,7 +71,7 @@ export default function Home() {
                 onClick={() => {
                   router.push("/explooor");
                 }}
-                className="text-xl bg-purple-800 mt-5 text-white px-2.5 py-2 rounded-xl tracking-normal z-[100]"
+                className="text-xl px-5 bg-purple-800 mt-5 text-white py-2 rounded-lg tracking-normal z-[100]"
               >
                 explooor
               </button>

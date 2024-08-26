@@ -23,7 +23,7 @@ export default function Header() {
 
   return (
     <div
-      className={`flex top-0 z-[40000] w-screen flex-col justify-between sm:gap-5 py-5 bg-white text-sm padded-horizontal ${comicSansBold.className} md:flex-row`}
+      className={`flex absolute top-0 z-[40000] w-screen flex-col justify-between sm:gap-5 py-5 bg-white text-sm md:text-xl padded-horizontal ${comicSansBold.className} md:flex-row`}
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <div className="flex items-center gap-5">

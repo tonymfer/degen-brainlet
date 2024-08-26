@@ -7,7 +7,7 @@ import { commify } from "mint.club-v2-sdk";
 export default function Home() {
   const { list, refresh } = useNftList();
   return (
-    <div className="flex h-full w-full flex-col items-center padded-horizontal">
+    <div className="flex h-full mt-20 w-full flex-col items-center padded-horizontal">
       <div className={`${comicSansBold.className} text-2xl md:text-5xl mt-10`}>
         Brruuy Brainlets with $BRAINLETS 🤤🤤{" "}
       </div>
