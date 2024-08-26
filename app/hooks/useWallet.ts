@@ -1,8 +1,8 @@
-'use client';
-import { useGlobalStore } from '@/stores/global';
-import { mintclub } from 'mint.club-v2-sdk';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
+"use client";
+import { useGlobalStore } from "@/stores/global";
+import { mintclub } from "mint.club-v2-sdk";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 export default function useWallet() {
   const account = useGlobalStore((state) => state.account);
@@ -29,9 +29,9 @@ export default function useWallet() {
     }
   }
 
-  useEffect(() => {
-    syncAccount();
-  }, []);
+  // useEffect(() => {
+  //   syncAccount();
+  // }, []);
 
   async function disconnect() {
     // TODO: Mission 2: disconnect wallet using sdk

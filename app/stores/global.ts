@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 // for global state management
 
@@ -6,7 +6,7 @@ type GlobalState = {
   account: `0x${string}` | null;
   userLoading: boolean;
   myPrice?: number;
-  list: readonly `0x${string}`[];
+  list: `0x${string}`[];
   collapsed: boolean;
 };
 

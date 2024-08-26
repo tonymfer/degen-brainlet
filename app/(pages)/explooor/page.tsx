@@ -1,11 +1,13 @@
 "use client";
+import Loading from "@/components/Loading";
 import TokenItem from "@/components/TokenItem";
 import { comicSans, comicSansBold, mferFont } from "@/fonts";
 import useNftList from "@/hooks/useNftList";
 import { commify } from "mint.club-v2-sdk";
 
 export default function Home() {
-  const { list, refresh } = useNftList();
+  const { list, refresh, loading } = useNftList();
+
   return (
     <div className="flex h-full mt-20 w-full flex-col items-center padded-horizontal">
       <div className={`${comicSansBold.className} text-2xl md:text-5xl mt-10`}>
@@ -29,10 +31,14 @@ export default function Home() {
         </div>
       )}
 
-      <div className="mt-5 md:flex w-full gap-1 md:flex-wrap grid grid-cols-2 md:justify-between sm:mt-10 ">
-        {list?.map((address) => {
-          return <TokenItem key={address} tokenAddress={address} />;
-        })}
+      <div className="mt-5 md:flex w-full gap-3 md:flex-wrap grid grid-cols-2 md:justify-start sm:mt-10 ">
+        {!list ? (
+          <Loading />
+        ) : (
+          list.map((address) => {
+            return <TokenItem key={address} tokenAddress={address} />;
+          })
+        )}
       </div>
     </div>
   );

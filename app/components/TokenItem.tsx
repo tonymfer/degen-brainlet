@@ -11,22 +11,21 @@ import { useState } from "react";
 export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
   const [imageFailed, setImageFailed] = useState(false);
   const { tokenAddress } = props;
-  const token = useNft(tokenAddress);
+  const { data, loading } = useNft(tokenAddress);
   const { balance } = useNftBalance(tokenAddress);
   const router = useRouter();
 
-  if (!token?.data) {
+  if (loading || !data) {
     return (
       <div
-        className={`flex h-[208px] ${comicSans.className} w-full items-center justify-center p-5`}
+        className={`flex aspect-square md:h-[300px] md:w-[300px] ${comicSans.className} w-full items-center justify-center p-5`}
       >
-        <Loading />
+        loading...
       </div>
     );
   }
 
-  const { name, priceChange, image, price, sold, maxSupply, address, symbol } =
-    token.data;
+  const { image, price, sold, maxSupply, symbol } = data || {};
 
   return (
     <div
@@ -34,7 +33,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
     >
       <div className="flex w-full justify-between">
         <div
-          className={`text-xl md:text-3xl text-black text-center ${comicSans.className}`}
+          className={`text-xl md:text-2xl text-black text-center ${comicSans.className}`}
         >
           {symbol}
         </div>
@@ -57,7 +56,9 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
             onError={() => setImageFailed(true)}
           />
         ) : (
-          <div className="h-[400px] w-full aspect-square border-2 border-black bg-primary/50" />
+          <div className="h-[300px] w-full flex items-center justify-center aspect-square border-2 border-black bg-green-500">
+            fetching Image...
+          </div>
         )}
         {/* <div className="ml-3 flex flex-col">
           <div className="mt-2 text-sm text-gray-500">

@@ -8,7 +8,6 @@ export type NftDetail = {
   sold: number;
   maxSupply: number;
   address: `0x${string}`;
-  priceChange: number;
   symbol: string;
 };
 
@@ -23,8 +22,6 @@ export default function useNft(symbolOrAddress?: string) {
     }
     try {
       setLoading(true);
-      // TODO: Mission 6: fetch NFT detail using sdk
-      // https://sdk.mint.club/docs/sdk/network/nft/getDetail
       const nft = mintclub.network("degen").nft(symbolOrAddress);
       const {
         info: {
@@ -35,15 +32,23 @@ export default function useNft(symbolOrAddress?: string) {
           currentSupply,
           maxSupply,
         },
-        steps,
       } = await nft.getDetail();
-      const initialPrice = steps[0].price;
-      const priceChange =
-        ((toNumber(priceForNextMint, 18) - toNumber(initialPrice, 18)) /
-          toNumber(initialPrice, 18)) *
-        100;
+      // const initialPrice = steps[0].price;
+      // const priceChange =
+      //   ((toNumber(priceForNextMint, 18) - toNumber(initialPrice, 18)) /
+      //     toNumber(initialPrice, 18)) *
+      //   100;
 
-      const imageHash = await nft.getImageUri().catch(() => "");
+      const imageHash = await Promise.race([
+        nft.getImageUri(),
+        new Promise<string>((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 5000)
+        ),
+      ]).catch((e) => {
+        console.error(e);
+        setLoading(false);
+        return "";
+      });
       const imageUrl = mintclub.ipfs.hashToGatewayUrl(imageHash);
 
       setData({
@@ -53,13 +58,14 @@ export default function useNft(symbolOrAddress?: string) {
         price: toNumber(priceForNextMint, 18),
         sold: Number(currentSupply),
         address: token,
-        priceChange,
         symbol,
       });
       setLoading(false);
     } catch (e) {
       console.error(e);
-      fetchData();
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   }
 

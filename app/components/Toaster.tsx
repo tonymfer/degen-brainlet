@@ -1,12 +1,12 @@
-'use client';
-import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+"use client";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
 const Toaster = dynamic(
-  () => import('react-hot-toast').then((c) => c.Toaster),
+  () => import("react-hot-toast").then((c) => c.Toaster),
   {
     ssr: false,
-  },
+  }
 );
 
 export default function ClientToaster() {
@@ -24,8 +24,8 @@ export default function ClientToaster() {
       }}
       toastOptions={{
         style: {
-          background: '#000',
-          color: '#fff',
+          background: "#000",
+          color: "#fff",
           border: `1px solid gray`,
           borderRadius: 0,
           fontSize: 14,

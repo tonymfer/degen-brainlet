@@ -4,17 +4,9 @@ import React from "react";
 import logo from "@brainlet/logo.png";
 import Image from "next/image";
 
-export default function Loading({
-  spinnerColor = "primary",
-  size = 24,
-  className,
-}: {
-  spinnerColor?: "primary" | "grey";
-  size?: number;
-  className?: string;
-}) {
+export default function Loading() {
   return (
-    <div className="flex flex-col inset-0 absolute w-screen h-screen items-center justify-center gap-2">
+    <div className="flex flex-col z-[10] inset-0 absolute w-screen h-screen backdrop-blur-lg items-center justify-center gap-2">
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 2, ease: "linear" }}

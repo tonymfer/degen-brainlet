@@ -14,6 +14,7 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import Buddies from "@/components/Buddies";
 import { comicSans } from "@/fonts";
+import Loading from "@/components/Loading";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -25,29 +26,19 @@ export default function CreatePage() {
   const [loading, setLoading] = useState(false);
   const debouncedUsername = useDebounce(username, 150);
   const usernameLoading = debouncedUsername !== username;
-  const myPrice = useGlobalStore((state) => state.myPrice);
   const { createProfile, checkingUsername, exists } =
     useCreate(debouncedUsername);
-  const { checkingProfile } = useProfile();
 
   if (!account) {
-    redirect("/login");
+    useGlobalStore.setState({ collapsed: false });
   }
 
-  if (isUserLoading || checkingProfile) {
+  if (isUserLoading) {
     return (
       <div className="flex h-full w-full justify-center text-2xl">
-        {/* <Loading /> */}
+        <Loading />
       </div>
     );
-  }
-
-  if (myPrice) {
-    toast.error("Ya already got a profile, silly!", {
-      id: "profile-exists",
-    });
-
-    redirect("/");
   }
 
   return (
@@ -109,10 +100,14 @@ export default function CreatePage() {
             value={username}
             maxLength={15}
             onChange={(e) => {
-              let value = e.target.value;
-              value = value.replace(/[^a-zA-Z0-9.-_]/g, "");
-              value = value.replace(/(\.){2,}/g, ".").replace(/(_){2,}/g, "_");
-              setUsername(value);
+              let v = e.target.value;
+              const val = v
+                ?.toString()
+                .replace(
+                  /[^\p{L}\p{N}\p{S}\p{M}\-_~]|[\u200B-\u200D\uFEFF\uFFFD+=`]/gu,
+                  ""
+                );
+              setUsername(val);
             }}
           />
           {!usernameLoading && username && !checkingUsername && (
@@ -131,8 +126,14 @@ export default function CreatePage() {
 
         <Button
           className=" px-5 py-2 mt-4 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
-          disabled={checkingUsername || exists || usernameLoading || !username}
-          loading={loading}
+          disabled={
+            checkingUsername ||
+            exists ||
+            usernameLoading ||
+            !username ||
+            loading ||
+            !account
+          }
           onClick={async () => {
             if (!file || !imgUrl) {
               toast.error("Image not uPloadeD");

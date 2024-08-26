@@ -23,7 +23,8 @@ import Link from "next/link";
 
 export default function Detail() {
   const [imageFailed, setImageFailed] = useState(false);
-  const { symbol } = useParams<{ symbol: string }>();
+  const { symbol: _symbol } = useParams<{ symbol: string }>();
+  const symbol = decodeURIComponent(_symbol);
 
   const token = useNft(symbol);
   const {
@@ -40,12 +41,11 @@ export default function Detail() {
     );
   }
 
-  const { name, priceChange, image, price, sold, maxSupply, address } =
-    token.data;
+  const { name, image, price, sold, maxSupply, address } = token.data;
 
   return (
     <div
-      className={`flex h-[100lvh] flex-col ${comicSans.className} padded-horizontal items-center justify-center`}
+      className={`flex h-[100lvh] mt-20 flex-col ${comicSans.className} padded-horizontal items-center justify-center`}
     >
       <div className="flex flex-col max-w-full md:max-w-[900px] items-center justify-center">
         <Link href="/explooor" className="place-self-start mb-4 -translate-x-4">
@@ -72,7 +72,7 @@ export default function Detail() {
         <div className="flex flex-col w-full items-center">
           {!imageFailed ? (
             <img
-              className="w-[400px] aspect-square border-black border-2 h-[400px] md:w-[700px] md:h-[700px]"
+              className="w-[400px] aspect-square border-black border-2 h-[400px] md:w-[500px] md:h-[500px]"
               src={image}
               width={700}
               height={700}

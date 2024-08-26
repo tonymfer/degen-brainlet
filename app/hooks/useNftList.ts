@@ -1,13 +1,15 @@
 import { BRAINLET_TOKEN_ADDRESS } from "@/constants";
 import { useGlobalStore } from "@/stores/global";
 import { mintclub } from "mint.club-v2-sdk";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function useNftList() {
   const list = useGlobalStore((state) => state.list);
+  const [loading, setLoading] = useState(false);
   async function fetchList() {
     try {
       useGlobalStore.setState({ list: [] });
+      setLoading(true);
       const list = await mintclub
         .network("degen")
         .bond.getTokensByReserveToken({
@@ -28,9 +30,8 @@ export default function useNftList() {
 
   useEffect(() => {
     fetchList();
-
     // eslint-disable-next-line
   }, []);
 
-  return { list, refresh: fetchList };
+  return { list, refresh: fetchList, loading };
 }

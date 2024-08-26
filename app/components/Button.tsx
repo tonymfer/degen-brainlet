@@ -1,6 +1,5 @@
 "use client";
 
-import Loading from "@/components/Loading";
 import { cn } from "@/utils/classnames";
 import React from "react";
 
@@ -28,11 +27,7 @@ export default function Button(props: ButtonProps) {
         props?.onClick?.();
       }}
     >
-      {props.loading ? (
-        <Loading spinnerColor={props.spinnerColor} size={14} />
-      ) : (
-        props.children
-      )}
+      {props.children}
     </button>
   );
 }
