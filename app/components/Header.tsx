@@ -100,6 +100,15 @@ function HeaderButtons() {
                 <Button
                   className="bg-transparent text-black"
                   onClick={() => {
+                    change();
+                    setCollapsed(true);
+                  }}
+                >
+                  Change Wallet
+                </Button>
+                <Button
+                  className="bg-transparent text-black"
+                  onClick={() => {
                     disconnect();
                     setCollapsed(true);
                   }}
