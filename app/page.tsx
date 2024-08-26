@@ -86,6 +86,7 @@ export default function Home() {
           onMouseUp={() => setMouseDown(false)}
           onClick={() => {
             setSliceSuccess(true);
+            stop();
 
             play();
             // if (sliceCount >= 2) {
