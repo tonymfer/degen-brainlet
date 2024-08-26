@@ -24,6 +24,10 @@ const config: Config = {
         "2xl": "1280px",
         "3xl": "1536px",
       },
+      colors: {
+        primary: "var(--primary)",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -31,6 +35,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("./tailwind-plugins/scrollbar.js"),
+    require("./tailwind-plugins/padding.js"),
+  ],
 };
 export default config;

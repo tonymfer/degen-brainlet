@@ -1,34 +1,28 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import useSound from "use-sound";
-import brainlet from "@brainlet/animation/brainlet.png";
-import hat from "@brainlet/animation/hat.png";
-import hatTopInner from "@brainlet/animation/hat-top-inner.png";
-import hatTopOuter from "@brainlet/animation/hat-top-outer.png";
-import scissorClose from "@brainlet/animation/scissor-close.png";
-import scissorOpen from "@brainlet/animation/scissor-open.png";
-import brainTop from "@brainlet/animation/brain-top.png";
 import arrow from "@brainlet/animation/arrow.png";
 import brainBottom from "@brainlet/animation/brain-bottom.png";
 import brainDisconnected from "@brainlet/animation/brain-disconnected.png";
-import water from "@brainlet/animation/water.png";
-import Image from "next/image";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import {
-  comicSans,
-  comicSansBold,
-  duruSans,
-  justAnotherHand,
-  notoSans,
-  patrickHand,
-  rockSalt,
-  sue,
-} from "./fonts";
-import LongComponent from "./components/LongComponent";
+import brainTop from "@brainlet/animation/brain-top.png";
+import brainlet from "@brainlet/animation/brainlet.png";
+import hatTopInner from "@brainlet/animation/hat-top-inner.png";
+import hatTopOuter from "@brainlet/animation/hat-top-outer.png";
+import hat from "@brainlet/animation/hat.png";
 import mainText from "@brainlet/animation/main-text.png";
-import Buddies from "./components/Buddies";
+import scissorClose from "@brainlet/animation/scissor-close.png";
+import scissorOpen from "@brainlet/animation/scissor-open.png";
+import water from "@brainlet/animation/water.png";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import useSound from "use-sound";
+import Buddies from "./components/Buddies";
 import Explaination from "./components/Explaination";
+import LongComponent from "./components/LongComponent";
+import { comicSans, comicSansBold, mferFont, rockSalt, sue } from "./fonts";
+
 const spring = {
   stiffness: 300,
   damping: 60,
@@ -38,6 +32,7 @@ export default function Home() {
   const [mouseDown, setMouseDown] = useState(false);
   const [sliceCount, setSliceCount] = useState(0);
   const [sliceSuccess, setSliceSuccess] = useState(false);
+  const router = useRouter();
 
   const [play, { pause, stop }] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
     loop: true,
@@ -51,8 +46,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex py-10 relative w-full min-h-screen overflow-clip flex-col items-center justify-center">
-      <div className="flex flex-col relative h-[100vh] items-center w-full justify-center">
+    <main className="flex relative w-full h-[calc(100vh-80px)] overflow-clip flex-col items-center justify-center">
+      <div className="flex flex-col relative h-[100lvh] items-center w-full justify-center">
         <AnimatePresence>
           {sliceSuccess && (
             <motion.div
@@ -64,14 +59,22 @@ export default function Home() {
                 damping: 30,
                 delay: 0.3,
               }}
-              className={`${comicSansBold.className} flex tracking-wider leading-none flex-col items-center font-[900] text-6xl sm:text-[170px] text-[#1EFF1E]`}
+              className={`${comicSansBold.className} z-[200] flex tracking-normal leading-none flex-col items-center font-[900] text-7xl md:text-[170px] text-[#1EFF1E]`}
             >
-              <span className="">BRAINLET</span>
+              <span className="">BRAINLETS</span>
               <span
-                className={`text-black text-3xl sm:text-6xl leading-none font-thin tracking-widest ${justAnotherHand.className}`}
+                className={`text-black text-5xl leading-none font-thin ${mferFont.className}`}
               >
                 on DegenL3
               </span>
+              <button
+                onClick={() => {
+                  router.push("/explooor");
+                }}
+                className="text-xl bg-purple-800 mt-5 text-white px-2.5 py-2 rounded-xl tracking-normal z-[100]"
+              >
+                explooor
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -79,24 +82,32 @@ export default function Home() {
         <motion.div
           whileHover="hover"
           whileTap="hover"
+          whileFocus="hover"
           onMouseDown={() => setMouseDown(true)}
           onTouchStart={() => setMouseDown(true)}
           onTouchEnd={() => setTimeout(() => setMouseDown(false), 1000)}
           onMouseUp={() => setMouseDown(false)}
           onClick={() => {
-            if (sliceCount >= 2) {
-              setSliceSuccess(true);
-              stop();
+            setSliceSuccess(true);
+            stop();
 
-              play({
-                forceSoundEnabled: true,
-              });
-            } else {
-              setSliceCount(sliceCount + 1);
-            }
+            play({
+              forceSoundEnabled: true,
+            });
+            // if (sliceCount >= 2) {
+            //   setSliceSuccess(true);
+            //   stop();
+
+            //   play({
+            //     forceSoundEnabled: true,
+            //   });
+            // } else {
+            //   setSliceCount(sliceCount + 1);
+            // }
           }}
           variants={container}
-          className="absolute -bottom-[1%] overflow-hidden mt-5"
+          style={{}}
+          className="absolute -bottom-[5%] overflow-hidden mt-5"
         >
           {!sliceSuccess && (
             <motion.div
@@ -164,6 +175,7 @@ export default function Home() {
           <motion.div
             variants={brains}
             initial={{ y: 80 }}
+            animate={{ y: sliceSuccess ? 400 : 80 }}
             className="absolute left-0 top-0 z-[1]"
             style={{
               opacity: sliceSuccess ? 0 : 1,
@@ -224,8 +236,8 @@ export default function Home() {
           <>
             <motion.button
               variants={brains}
-              initial={{ y: -100, opacity: 0, height: 0 }}
-              animate={{ y: 0, opacity: 1, height: "fit-content" }}
+              initial={{ y: 200, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
               transition={{
                 type: "spring",
                 stiffness: 300,
@@ -236,6 +248,7 @@ export default function Home() {
                 navigator.clipboard.writeText(
                   "0xC97e22D7Dc2aBcC96964f6B7E8717e9c960758d4"
                 );
+                toast.success("Coooopied 🤤");
               }}
               className={`${comicSansBold.className} mt-10 sm:mt-20 flex flex-col gap-10 items-center justify-center h-fit relative hover:underline-offset-4 text-orange-400 text-lg font-bold text-center`}
             >
@@ -249,10 +262,10 @@ export default function Home() {
                   <span className="text-black text-3xl md:text-[2.5vw] text-center">
                     $BRAINLET(L3):
                   </span>
-                  <div className="flex items-end md:items-center text-center">
+                  <div className="flex items-end md:items-end text-center">
                     0xC97e22D7Dc2aBcC96964f6B7
-                    <span className="group-hover:opacity-0 text-[1.5vw] leading-normal group-hover:hidden transition-all overflow-hidden">
-                      ...umm🤤...
+                    <span className="group-hover:opacity-0 mb-1 mr-1 leading-none text-[1.5vw] group-hover:hidden transition-all overflow-hidden">
+                      ...🤤........
                     </span>
                     E8717e9c960758d4
                   </div>
@@ -264,7 +277,7 @@ export default function Home() {
                   passHref
                   className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-orange-500`}
                 >
-                  explooorer
+                  degenscan
                 </Link>
                 <Link
                   href="https://warpcast.com/~/channel/brainlet"
@@ -286,7 +299,7 @@ export default function Home() {
             passHref
             className={`w-full px-[10%] text-[8vw] text-center mt-5 ${comicSansBold.className} text-blue-600`}
           >
-            <div className=" p-10 bg-gradient-to-r max-w-full rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]">
+            <div className=" p-10 bg-gradient-to-r max-w-full font-thin rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]">
               brrruuuuuuuuuuy
             </div>
           </Link>

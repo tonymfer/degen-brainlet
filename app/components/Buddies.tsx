@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export default function Buddies() {
   return (
-    <div className="inset-0 rotate-180 md:rotate-0 absolute w-screen h-screen bg-transparent">
+    <div className="inset-0 rotate-180 md:rotate-0 pointer-events-none absolute w-screen h-screen bg-transparent">
       {[one, two, three, four].map((src, index) => (
         <motion.div
           key={index}

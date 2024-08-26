@@ -18,9 +18,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./app/*"],
       "@sounds/*": ["./public/sounds/*"],
       "@brainlet/*": ["./public/brainlet/*"],
+      "@components/*": ["./app/components/*"],
+      "@hooks/*": ["./app/hooks/*"],
+
     }
   },
   "include": ["app/**/*.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

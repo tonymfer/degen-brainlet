@@ -20,6 +20,11 @@ export const comicSans = localFont({
   display: "swap",
 });
 
+export const mferFont = localFont({
+  src: "./fonts/sartoshi.ttf",
+  display: "swap",
+});
+
 export const comicSansBold = localFont({
   src: "./fonts/sans/Ldfcomicsansbold-zgma.ttf",
   display: "swap",
