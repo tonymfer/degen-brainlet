@@ -22,7 +22,7 @@ import Buddies from "./components/Buddies";
 import Explaination from "./components/Explaination";
 import LongComponent from "./components/LongComponent";
 import { comicSans, comicSansBold, mferFont, rockSalt, sue } from "./fonts";
-import bgmSound from "/sounds/brainlet-bgm-lofi.mp3";
+import bgmSound from "../public/sounds/brainlet-bgm-lofi.mp3";
 
 const spring = {
   stiffness: 300,
