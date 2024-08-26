@@ -7,7 +7,7 @@ const title = "Brainlets on DegenL3";
 const description = "Brainlet L3 is the future of finance 🤤";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://brainlets.vercel.app"),
+  metadataBase: new URL("https://brainlets.life"),
   title,
   description,
   openGraph: {
@@ -45,10 +45,10 @@ export const metadata: Metadata = {
   manifest: `/manifest.json`,
   other: {
     "fc:frame": "vNext",
-    "fc:frame:image": "https://brainlets.vercel.app/og-1200-630.png",
+    "fc:frame:image": "https://brainlets.life/og-1200-630.png",
     "fc:frame:button:1": "Go Brrrruuy",
     "fc:frame:button:1:action": "link",
-    "fc:frame:button:1:target": "https://brainlets.vercel.app",
+    "fc:frame:button:1:target": "https://brainlets.life",
   },
 };
 
