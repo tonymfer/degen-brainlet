@@ -29,7 +29,7 @@ export default function useCreate(symbol: string) {
           },
           curveData: {
             curveType: "LOGARITHMIC",
-            stepCount: 69, // how granular the curve is
+            stepCount: 68, // how granular the curve is
             maxSupply: 69, // NFT max supply
             initialMintingPrice: 69000, // starting price, 천원
             finalMintingPrice: 6_900_000, // ending price, 일억

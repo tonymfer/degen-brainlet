@@ -38,13 +38,6 @@ export default function Home() {
     loop: true,
   });
 
-  useEffect(() => {
-    if (play) play();
-    return () => {
-      stop();
-    };
-  }, []);
-
   return (
     <main className="flex relative w-full min-h-screen overflow-clip flex-col items-center justify-center">
       <div className="flex flex-col relative h-[100vh] items-center w-full justify-center">
@@ -89,11 +82,8 @@ export default function Home() {
           onMouseUp={() => setMouseDown(false)}
           onClick={() => {
             setSliceSuccess(true);
-            stop();
 
-            play({
-              forceSoundEnabled: true,
-            });
+            play();
             // if (sliceCount >= 2) {
             //   setSliceSuccess(true);
             //   stop();
