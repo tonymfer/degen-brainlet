@@ -22,6 +22,7 @@ import Buddies from "./components/Buddies";
 import Explaination from "./components/Explaination";
 import LongComponent from "./components/LongComponent";
 import { comicSans, comicSansBold, mferFont, rockSalt, sue } from "./fonts";
+import bgmSound from "../public/sounds/brainlet-bgm-lofi.mp3";
 
 const spring = {
   stiffness: 300,
@@ -34,9 +35,12 @@ export default function Home() {
   const [sliceSuccess, setSliceSuccess] = useState(false);
   const router = useRouter();
 
-  const [play, { pause, stop }] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
+  const [play, { pause, stop }] = useSound(bgmSound, {
     loop: true,
   });
+  // const [play, { pause, stop }] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
+  //   loop: true,
+  // });
 
   return (
     <main className="flex relative w-full min-h-screen overflow-clip flex-col items-center justify-center">
