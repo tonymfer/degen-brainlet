@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "frog": "frog dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,6 +13,9 @@
     "@uidotdev/usehooks": "^2.4.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.29",
+    "frog": "^0.17.0",
+    "hono": "^4.5.9",
+    "ky": "^1.7.1",
     "mint.club-v2-sdk": "^1.0.4",
     "next": "14.2.5",
     "react": "^18",
@@ -21,6 +25,7 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.2",
     "use-sound": "^4.0.3",
+    "vercel": "^37.1.2",
     "wagmi": "^2.12.7",
     "zustand": "^4.5.5"
   },

@@ -24,25 +24,13 @@ export default function NftImage({
   );
   if (loading || !url)
     return (
-      <div
-        className={cn(baseClass, className)}
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-        }}
-      >
+      <div className={cn(baseClass, className)}>
         <div className="h-full w-full rounded" />
       </div>
     );
 
   return (
-    <div
-      className={cn(baseClass, className)}
-      style={{
-        width: `${size}px`,
-        height: `${size}px`,
-      }}
-    >
+    <div className={cn(baseClass, className)}>
       <img
         className="max-h-full max-w-full object-contain"
         src={url}

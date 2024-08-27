@@ -14,7 +14,7 @@ export default function page() {
         rel="noopener noreferrer"
         className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-[#916af3]`}
       >
-        Claim here 🤤
+        Claim in mintclub for now 🤤
       </Link>
     </div>
   );

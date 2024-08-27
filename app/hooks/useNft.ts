@@ -9,6 +9,7 @@ export type NftDetail = {
   maxSupply: number;
   address: `0x${string}`;
   symbol: string;
+  priceChange: number;
 };
 
 export default function useNft(symbolOrAddress?: string) {
@@ -36,12 +37,17 @@ export default function useNft(symbolOrAddress?: string) {
           currentSupply,
           maxSupply,
         },
+        steps,
       } = await nft.getDetail();
-      // const initialPrice = steps[0].price;
-      // const priceChange =
-      //   ((toNumber(priceForNextMint, 18) - toNumber(initialPrice, 18)) /
-      //     toNumber(initialPrice, 18)) *
-      //   100;
+      const initialPrice = steps[1].price;
+      const initialPriceNumber = toNumber(initialPrice, 18);
+      const priceForNextMintNumber = toNumber(priceForNextMint, 18);
+      const priceChange =
+        initialPriceNumber !== 0
+          ? ((priceForNextMintNumber - initialPriceNumber) /
+              initialPriceNumber) *
+            100
+          : 0;
 
       // const imageHash = await Promise.race([
       //   nft.getImageUri(),
@@ -62,6 +68,7 @@ export default function useNft(symbolOrAddress?: string) {
         sold: Number(currentSupply),
         address: token,
         symbol,
+        priceChange,
       });
       setLoading(false);
     } catch (e) {

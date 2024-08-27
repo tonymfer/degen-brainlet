@@ -21,7 +21,9 @@ export default function useNftList() {
       const filteredList = list.filter(
         (address) => address !== "0x1d1854DC3B78Bb9926DE929A4CddE4e44aF76F65"
       );
-      useGlobalStore.setState({ list: filteredList });
+      const orderedList = filteredList.reverse();
+
+      useGlobalStore.setState({ list: orderedList });
     } catch (e) {
       console.error(e);
       fetchList();

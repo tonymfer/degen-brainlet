@@ -7,8 +7,7 @@ import useERC20Balance from "@/hooks/useERC20Balance";
 import useProfile from "@/hooks/useProfile";
 import useWallet from "@/hooks/useWallet";
 import { useGlobalStore } from "@/stores/global";
-import { cn } from "@/utils/classnames";
-import { abbreviateAddress, customShortenNumber } from "@/utils/strings";
+import { abbreviateAddress } from "@/utils/strings";
 import logo from "@brainlet/logo.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,12 +17,11 @@ export default function Header() {
   const setCollapsed = (collapsed: boolean) =>
     useGlobalStore.setState({ collapsed });
   const { account, connect, disconnect, change } = useWallet();
-  const router = useRouter();
   useProfile();
 
   return (
     <div
-      className={`flex absolute top-0 z-[40000] w-screen flex-col justify-between sm:gap-5 py-5 bg-white text-sm md:text-xl padded-horizontal ${comicSansBold.className} md:flex-row`}
+      className={`flex absolute top-0 z-[40000] w-screen flex-col justify-between sm:gap-5 py-5 bg-white text-sm md:text-lg padded-horizontal ${comicSansBold.className} md:flex-row`}
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <div className="flex items-center gap-5">
@@ -37,9 +35,9 @@ export default function Header() {
                 Explooor
               </Button>
             </Link>
-            <Link href="/" className="font-bold text-black">
+            {/* <Link href="/" className="font-bold text-black">
               <Button className=" bg-transparent text-black/80">About</Button>
-            </Link>
+            </Link> */}
             <Link href="/create" className="flex w-fit text-black ">
               <Button className="w-8 text-2xl h-8 overflow-hidden p-2 aspect-square text-black">
                 +
@@ -48,14 +46,6 @@ export default function Header() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
-            onClick={() => {
-              router.push(`/earnings`);
-            }}
-            className=" px-2.5 py-2 max-w-full font-thin rounded-2xl"
-          >
-            Earnings 🤤
-          </Button>
           <Button
             className=" px-4 py-2 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
             onClick={() => useGlobalStore.setState({ collapsed: false })}
@@ -81,6 +71,7 @@ function HeaderButtons() {
     useGlobalStore.setState({ collapsed });
   const { account, connect, disconnect, change } = useWallet();
   const { balance } = useERC20Balance(BRAINLET_TOKEN_ADDRESS);
+  const router = useRouter();
   return (
     <>
       {!collapsed && (
@@ -88,14 +79,22 @@ function HeaderButtons() {
           <div
             className={`fixed left-0 top-0 ${comicSans.className} z-20 h-[100lvh] w-screen backdrop-blur-sm`}
           />
-          <div className="fixed w-[300px] h-[300px] bg-white border-2 -translate-y-1/2 border-black top-1/2 text-center flex flex-col items-center justify-center left-1/2 z-40 -translate-x-1/2">
-            <Image src={logo} width={80} height={120} alt="logo" />
+          <div className="fixed w-[300px] h-[400px] bg-white border-2 -translate-y-1/2 border-black top-1/2 text-center flex flex-col items-center justify-center left-1/2 z-40 -translate-x-1/2">
+            <Image src={logo} width={60} height={100} alt="logo" />
             {account ? (
               <>
                 <Button className="border-2 bg-transparent text-black">
                   <span className="text-gray-500">
                     {abbreviateAddress(account)}
                   </span>
+                </Button>
+                <Button
+                  onClick={() => {
+                    router.push(`/dashboard`);
+                  }}
+                  className=" px-2.5 py-2 max-w-full font-thin rounded-2xl"
+                >
+                  Dashboard
                 </Button>
                 <Button
                   className="bg-transparent text-black"
@@ -127,7 +126,7 @@ function HeaderButtons() {
               </>
             )}
             <Button
-              className="bg-orange-400 px-2.5 py-2 mt-2"
+              className="bg-orange-400 w-[200px] py-1 mt-2"
               onClick={() => setCollapsed(true)}
             >
               Close

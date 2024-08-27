@@ -1,21 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import Button from "@/components/Button";
-import Loading from "@/components/Loading";
-import { comicSans } from "@/fonts";
+import { comicSans, comicSansBold } from "@/fonts";
 import useNft from "@/hooks/useNft";
 import useNftBalance from "@/hooks/useNftBalance";
 import { commify, shortenNumber } from "mint.club-v2-sdk";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Image from "next/image";
 import NftImage from "./NftImage";
+import useWallet from "@/hooks/useWallet";
 
 export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
-  const [imageFailed, setImageFailed] = useState(false);
   const { tokenAddress } = props;
   const { data, loading, nftUrl } = useNft(tokenAddress);
   const { balance } = useNftBalance(tokenAddress);
   const router = useRouter();
+  const { account } = useWallet();
 
   if (loading || !data) {
     return (
@@ -27,47 +25,42 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
     );
   }
 
-  const { price, sold, maxSupply, symbol } = data || {};
+  const { price, sold, maxSupply, symbol, priceChange } = data || {};
 
   return (
     <div
       className={`flex h-fit flex-col ${comicSans.className} justify-center`}
     >
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between items-end">
         <div
           className={`text-xl md:text-2xl text-black text-center ${comicSans.className}`}
         >
           {symbol}
         </div>
-        <div className="flex flex-col text-center">
-          <div className="mt-1 text-xl text-purple-600 font-bold">
-            {maxSupply - sold}{" "}
-            <span className="text-xl text-black">/{commify(maxSupply)}</span>
-          </div>
+        <div className={`text-green-600 ${comicSansBold.className}`}>
+          +{commify(Math.floor(priceChange)) || 0}%
         </div>
-        {/* <div className="text-green-600">+{priceChange || 0}%</div> */}
       </div>
-      <div className="flex flex-col w-full items-center">
+      <div className="flex relative w-fit h-fit items-center">
         <NftImage
           image={nftUrl}
           size={300}
           className="md:w-[300px] md:h-[300px]"
         />
-        {/* <div className="ml-3 flex flex-col">
-          <div className="mt-2 text-sm text-gray-500">
-            {abbreviateAddress(address)}
-          </div>
-        </div> */}
+        <div className="mt-1 bg-white -translate-y-1 absolute bottom-0 right-0 -translate-x-2 text-xl text-purple-600 font-bold">
+          {maxSupply - sold}
+          <span className="text-xl text-black">/{commify(maxSupply)}</span>
+        </div>
       </div>
       <div className="flex w-full items-center justify-between px-2 text-black">
         <div className="flex items-center text-center">
           <span className="mt-1 font-bold">
-            price: {shortenNumber(price)} $BRAINLET
+            {account && `holding: ${shortenNumber(balance)}`}
           </span>
         </div>
         <div className="flex items-center text-center">
           <span className="mt-1 font-bold">
-            holding: {shortenNumber(balance)}
+            {shortenNumber(price)} $BRAINLET
           </span>
         </div>
       </div>

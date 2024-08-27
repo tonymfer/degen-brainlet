@@ -68,9 +68,9 @@ export default function Home() {
                 onClick={() => {
                   router.push("/explooor");
                 }}
-                className="text-xl px-5 bg-purple-800 mt-5 text-white py-2 rounded-lg tracking-normal z-[100]"
+                className=" px-8 text-2xl font-bold py-2 mt-7 bg-gradient-to-r max-w-full text-black rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
               >
-                explooor
+                EXPLOOOR
               </button>
             </motion.div>
           )}

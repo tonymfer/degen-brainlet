@@ -2,25 +2,12 @@
 import { DEGEN_CHAIN_ID } from "@/constants";
 import { ERC1155_ABI } from "@/constants/erc1155";
 import useIpfsImage from "@/hooks/useIpfsImage";
+import { uriToURL } from "@/utils/url";
 import { mintclub } from "mint.club-v2-sdk";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useReadContract } from "wagmi";
 export const MCV2_IPFS_GATEWAY = "https://mintv2-web.myfilebase.com/ipfs/";
-
-export function uriToURL(urlOrHash?: string): {
-  url: string;
-  protocol: "https" | "ipfs" | undefined;
-} {
-  if (urlOrHash?.startsWith("ipfs://")) {
-    urlOrHash = urlOrHash?.replace("ipfs://", "");
-    return { url: `${MCV2_IPFS_GATEWAY}${urlOrHash}`, protocol: "ipfs" };
-  } else if (urlOrHash?.startsWith("https://")) {
-    return { url: urlOrHash, protocol: "https" };
-  }
-
-  return { url: "", protocol: undefined };
-}
 
 export function useERC1155Image({
   address,
