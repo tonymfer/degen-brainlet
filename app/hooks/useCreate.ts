@@ -14,11 +14,7 @@ export default function useCreate(symbol: string) {
     onSuccess: () => void,
     onError: (err: any) => void
   ) {
-    // TODO: Mission 4: create NFT using sdk
-    // https://sdk.mint.club/docs/sdk/network/nft/create
-    // NFT 생성하기
-
-    const curveTypes = ["LINEAR", "LOGARITHMIC", "EXPONENTIAL"].
+    const curveTypes = ["LINEAR", "LOGARITHMIC", "EXPONENTIAL"];
     const curveType = curveTypes[Math.floor(Math.random() * curveTypes.length)];
     try {
       await mintclub
