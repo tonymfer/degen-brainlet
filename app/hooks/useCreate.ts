@@ -17,6 +17,9 @@ export default function useCreate(symbol: string) {
     // TODO: Mission 4: create NFT using sdk
     // https://sdk.mint.club/docs/sdk/network/nft/create
     // NFT 생성하기
+
+    const curveTypes = ["LINEAR", "LOGARITHMIC", "EXPONENTIAL"].
+    const curveType = curveTypes[Math.floor(Math.random() * curveTypes.length)];
     try {
       await mintclub
         .network("degen")
@@ -28,7 +31,7 @@ export default function useCreate(symbol: string) {
             decimals: 18,
           },
           curveData: {
-            curveType: "LOGARITHMIC",
+            curveType,
             stepCount: 60, // how granular the curve is
             maxSupply: 69, // NFT max supply
             initialMintingPrice: 69000, // starting price, 천원
