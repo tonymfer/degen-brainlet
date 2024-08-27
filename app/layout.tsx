@@ -43,7 +43,6 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: `/manifest.json`,
-  robots: {},
   other: {
     "fc:frame": "vNext",
     "fc:frame:image": "https://brainlets.life/og-1200-630.png",
