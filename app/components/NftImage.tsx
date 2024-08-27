@@ -32,7 +32,7 @@ export default function NftImage({
   return (
     <div className={cn(baseClass, className)}>
       <Image
-        className="max-h-full max-w-full object-contain"
+        className="max-h-full sm:w-[400px] sm:h-[400px] w-full h-full max-w-full object-contain"
         src={url}
         alt="nft-image"
         width={400}

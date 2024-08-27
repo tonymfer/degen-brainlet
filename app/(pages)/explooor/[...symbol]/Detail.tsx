@@ -47,11 +47,27 @@ export default function Detail() {
       className={`flex h-[100lvh] mt-20 flex-col ${comicSans.className} padded-horizontal items-center justify-center`}
     >
       <div className="flex flex-col max-w-full md:max-w-[900px] items-center justify-center">
-        <Link href="/explooor" className="place-self-start mb-4 -translate-x-4">
-          <Button className="bg-transparent text-black text-2xl">
-            ← Go back
-          </Button>
-        </Link>
+        <div className="w-full flex justify-between items-center">
+          <Link
+            href="/explooor"
+            className="place-self-start mb-4 -translate-x-4"
+          >
+            <Button className="bg-transparent text-black text-2xl">
+              ← Go back
+            </Button>
+          </Link>
+          <Link
+            href={`https://mint.club/nft/degen/${symbol}`}
+            passHref
+            target="_blank"
+            rel="noopener noreferrer"
+            className="place-self-start mb-4"
+          >
+            <Button className="bg-transparent bg-[#15e6b7] border-2 text-black text-2xl">
+              MintClub
+            </Button>
+          </Link>
+        </div>
         <div className="flex w-full justify-between">
           <div
             className={`text-3xl text-black text-center ${comicSans.className}`}
