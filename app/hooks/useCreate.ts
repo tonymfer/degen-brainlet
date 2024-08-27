@@ -15,7 +15,9 @@ export default function useCreate(symbol: string) {
     onError: (err: any) => void
   ) {
     const curveTypes = ["LINEAR", "LOGARITHMIC", "EXPONENTIAL"];
-    const curveType = curveTypes[Math.floor(Math.random() * curveTypes.length)];
+    const curveType = curveTypes[
+      Math.floor(Math.random() * curveTypes.length)
+    ] as any;
     try {
       await mintclub
         .network("degen")
