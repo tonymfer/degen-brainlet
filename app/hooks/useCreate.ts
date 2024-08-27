@@ -28,7 +28,7 @@ export default function useCreate(symbol: string) {
             decimals: 18,
           },
           curveData: {
-            curveType: "EXPONENTIAL",
+            curveType: "LOGARITHMIC",
             stepCount: 60, // how granular the curve is
             maxSupply: 69, // NFT max supply
             initialMintingPrice: 69000, // starting price, 천원

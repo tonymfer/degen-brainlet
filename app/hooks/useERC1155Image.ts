@@ -31,6 +31,7 @@ function useUri({ address }: { address?: `0x${string}` | undefined | "" }) {
   const [uri, setUri] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    console.log("address", address);
     if (!address) return;
 
     const fetchUri = async () => {
