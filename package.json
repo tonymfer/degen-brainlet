@@ -26,6 +26,7 @@
     "tailwind-merge": "^2.5.2",
     "use-sound": "^4.0.3",
     "vercel": "^37.1.2",
+    "viem": "^2.20.0",
     "wagmi": "^2.12.7",
     "zustand": "^4.5.5"
   },

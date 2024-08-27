@@ -22,6 +22,7 @@ function useIpfsImage(initialUrl?: string | null) {
       const currentDomain = new URL(url).hostname;
       const nextUrl = url.replace(currentDomain, fallBackIpfs[maxTries + 1]);
       setUrl(nextUrl);
+      console.log("Fallback to", nextUrl);
       setMaxTries(maxTries + 1);
     } catch (e) {
       console.error(e);

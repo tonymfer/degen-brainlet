@@ -21,7 +21,7 @@ export default function Home() {
         <div
           className={`flex ${comicSans.className} text-3xl w-full items-center justify-between gap-2 mobile:flex-col mobile:justify-center`}
         >
-          <div className="">total {commify(list.length)} Brainlets</div>
+          <div className="">total: {commify(list.length)}</div>
           <div
             className="cursor-pointer text-2xl bg-transparent"
             onClick={refresh}

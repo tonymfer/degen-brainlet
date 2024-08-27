@@ -15,7 +15,7 @@ export type NftDetail = {
 export default function useNft(symbolOrAddress?: string) {
   const [data, setData] = useState<NftDetail | null>(null);
   const [loading, setLoading] = useState(false);
-  const { image: nftUrl } = useERC1155Image({
+  const { image: nftUrl, handleFallback } = useERC1155Image({
     address: data?.address,
   });
   console.log("nftUrl", nftUrl);
@@ -84,5 +84,5 @@ export default function useNft(symbolOrAddress?: string) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [symbolOrAddress]);
 
-  return { data, nftUrl, refresh: fetchData, loading };
+  return { data, nftUrl, refresh: fetchData, loading, handleFallback };
 }

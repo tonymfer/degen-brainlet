@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import Buddies from "@/components/Buddies";
 import { comicSans } from "@/fonts";
 import Loading from "@/components/Loading";
+import logo from "@brainlet/logo.png";
 
 export default function CreatePage() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function CreatePage() {
   const [loading, setLoading] = useState(false);
   const debouncedUsername = useDebounce(username, 150);
   const usernameLoading = debouncedUsername !== username;
+  const [createSuccess, setCreateSuccess] = useState(false);
   const { createProfile, checkingUsername, exists } =
     useCreate(debouncedUsername);
 
@@ -184,7 +186,7 @@ export default function CreatePage() {
               await createProfile(
                 metadataUrl,
                 () => {
-                  router.replace("/");
+                  setCreateSuccess(true);
                 },
                 (err: any) => {
                   toast.error(err?.message);
@@ -201,6 +203,25 @@ export default function CreatePage() {
           CREATE
         </Button>
       </div>
+      {createSuccess && (
+        <>
+          <div
+            className={`fixed left-0 top-0 ${comicSans.className} z-20 h-[100lvh] w-screen backdrop-blur-sm`}
+          />
+          <div className="fixed w-[300px] h-[300px] bg-white border-2 -translate-y-1/2 border-black top-1/2 text-center flex flex-col items-center justify-center left-1/2 z-40 -translate-x-1/2">
+            <Image src={logo} width={60} height={100} alt="logo" />
+
+            <Button
+              onClick={() => {
+                router.push(`/explooor/${username}`);
+              }}
+              className=" px-2.5 py-2 max-w-full font-thin rounded-2xl"
+            >
+              Go to Nft Page
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

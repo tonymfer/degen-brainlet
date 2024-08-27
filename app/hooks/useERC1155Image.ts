@@ -20,9 +20,11 @@ export function useERC1155Image({
 
   const { url } = uriToURL(uri);
   const { url: fallbackUrl, handleFallback } = useIpfsImage(url);
+  console.log("fallbackUrl", fallbackUrl, url, uri);
 
   return {
     image: fallbackUrl || url,
+    handleFallback,
   };
 }
 

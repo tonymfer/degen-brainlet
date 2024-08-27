@@ -25,6 +25,15 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: [
+      "mintv2-web.myfilebase.com",
+      "gateway.pinata.cloud",
+      "ipfs.io",
+      "dweb.link",
+      "w3s.link",
+    ],
+  },
 };
 
 export default nextConfig;

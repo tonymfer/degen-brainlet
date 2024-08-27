@@ -31,10 +31,12 @@ export default function NftImage({
 
   return (
     <div className={cn(baseClass, className)}>
-      <img
+      <Image
         className="max-h-full max-w-full object-contain"
         src={url}
         alt="nft-image"
+        width={400}
+        height={400}
         // unoptimized={image?.includes?.(".gif")}
         onError={handleFallback}
         // fill

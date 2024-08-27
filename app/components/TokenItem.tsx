@@ -41,26 +41,42 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
           +{commify(Math.floor(priceChange)) || 0}%
         </div>
       </div>
-      <div className="flex relative w-fit h-fit items-center">
+      <div
+        className={`flex ${account && "border-4"} ${
+          balance > 0 ? "border-green-500" : "border-gray-200"
+        } relative w-fit h-fit items-center`}
+      >
         <NftImage
           image={nftUrl}
           size={300}
           className="md:w-[300px] md:h-[300px]"
         />
-        <div className="mt-1 bg-white -translate-y-1 absolute bottom-0 right-0 -translate-x-2 text-xl text-purple-600 font-bold">
+        {/* <div className="mt-1 bg-white -translate-y-1 absolute top-0 right-0 -translate-x-2 text-xl text-purple-600 font-bold">
           {maxSupply - sold}
           <span className="text-xl text-black">/{commify(maxSupply)}</span>
-        </div>
+        </div> */}
+        {balance > 0 && (
+          <div
+            className={`mt-1 ${
+              balance > 0 ? "bg-green-500" : "bg-gray-400"
+            } absolute bottom-0 right-0 text-xl text-white px-2 font-bold`}
+          >
+            {account && `holding: ${shortenNumber(balance)}`}
+          </div>
+        )}
       </div>
       <div className="flex w-full items-center justify-between px-2 text-black">
-        <div className="flex items-center text-center">
-          <span className="mt-1 font-bold">
-            {account && `holding: ${shortenNumber(balance)}`}
+        <div className="flex text-xl items-end text-center">
+          {maxSupply - sold}
+          <span className="text-sm mb-0.5 text-black">
+            /{commify(maxSupply)}
           </span>
+          {/* <span className="text-base ml-1 text-black">remaining</span> */}
         </div>
         <div className="flex items-center text-center">
-          <span className="mt-1 font-bold">
-            {shortenNumber(price)} $BRAINLET
+          <span className="mt-1 text-xl font-bold">
+            {commify(Math.floor(price))}{" "}
+            <span className="text-xl font-normal">🧠</span>
           </span>
         </div>
       </div>
