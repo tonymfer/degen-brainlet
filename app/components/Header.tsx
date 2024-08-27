@@ -39,7 +39,7 @@ export default function Header() {
               <Button className=" bg-transparent text-black/80">About</Button>
             </Link> */}
             <Link href="/create" className="flex w-fit text-black ">
-              <Button className=" bg-transparent text-black/80">Create</Button>
+              <Button className=" bg-transparent text-black/80">Post</Button>
             </Link>
           </div>
         </div>
