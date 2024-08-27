@@ -283,7 +283,7 @@ export default function Home() {
               </div>
               <div className="flex my-20 flex-col sm:flex-row gap-20 sm:gap-[80px] items-center text-5xl sm:text-[6vw] font-bold justify-center">
                 <Link
-                  href="https://mint.club/token/degen/BRAINLET"
+                  href="https://explorer.degen.tips/token/0xC97e22D7Dc2aBcC96964f6B7E8717e9c960758d4"
                   passHref
                   className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-yellow-500`}
                 >
