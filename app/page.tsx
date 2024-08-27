@@ -229,7 +229,9 @@ export default function Home() {
       <AnimatePresence>
         {sliceSuccess && (
           <div className="flex mt-10 sm:mt-20 flex-col items-center text-5xl sm:text-[6vw] font-bold justify-center">
-            <div className="text-3xl">inspioored by Brainlet on Solana ⬇️ </div>
+            <div className="text-3xl">
+              inspioored by Brainlet on Solana, check out this grail ⬇️{" "}
+            </div>
             <Link
               href="https://brainlet.community/"
               passHref
