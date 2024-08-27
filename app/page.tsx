@@ -228,6 +228,19 @@ export default function Home() {
       </div>
       <AnimatePresence>
         {sliceSuccess && (
+          <div className="flex mt-10 sm:mt-20 flex-col items-center text-5xl sm:text-[6vw] font-bold justify-center">
+            <div className="text-3xl">inspioored by Brainlet on Solana ⬇️ </div>
+            <Link
+              href="https://brainlet.community/"
+              passHref
+              className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-orange-500`}
+            >
+              brainlet.community
+            </Link>
+          </div>
+        )}
+
+        {sliceSuccess && (
           <>
             <motion.button
               variants={brains}
@@ -245,7 +258,7 @@ export default function Home() {
                 );
                 toast.success("Coooopied 🤤");
               }}
-              className={`${comicSansBold.className} mt-10 sm:mt-20 flex flex-col gap-10 items-center justify-center h-fit relative hover:underline-offset-4 text-orange-400 text-lg font-bold text-center`}
+              className={`${comicSansBold.className} mt-10 flex flex-col gap-10 items-center justify-center h-fit relative hover:underline-offset-4 text-orange-400 text-lg font-bold text-center`}
             >
               <div className="relative group">
                 <div
@@ -270,7 +283,7 @@ export default function Home() {
                 <Link
                   href="https://mint.club/token/degen/BRAINLET"
                   passHref
-                  className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-orange-500`}
+                  className={`underline underline-offset-8 mt-5 ${comicSansBold.className} text-yellow-500`}
                 >
                   degenscan
                 </Link>

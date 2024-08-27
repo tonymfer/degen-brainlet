@@ -42,7 +42,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
         </div>
       </div>
       <div
-        className={`flex ${account && "border-4"} ${
+        className={`flex ${account && "border-2"} ${
           balance > 0 ? "border-green-500" : "border-gray-200"
         } relative w-fit h-fit items-center`}
       >
