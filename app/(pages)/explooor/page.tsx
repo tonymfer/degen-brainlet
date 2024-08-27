@@ -1,12 +1,19 @@
 "use client";
 import Loading from "@/components/Loading";
 import TokenItem from "@/components/TokenItem";
+import { BRAINLET_TOKEN_ADDRESS } from "@/constants";
 import { comicSans, comicSansBold, mferFont } from "@/fonts";
+import useERC20Balance from "@/hooks/useERC20Balance";
 import useNftList from "@/hooks/useNftList";
 import { commify } from "mint.club-v2-sdk";
 
 export default function Home() {
   const { list, refresh, loading } = useNftList();
+  const {
+    balance: krwBalance,
+    loadingBalance: loadingKrw,
+    refresh: refreshKrw,
+  } = useERC20Balance(BRAINLET_TOKEN_ADDRESS);
 
   return (
     <div className="flex h-full mt-20 w-full flex-col items-center padded-horizontal">
@@ -21,12 +28,20 @@ export default function Home() {
         <div
           className={`flex ${comicSans.className} text-3xl w-full items-center justify-between gap-2 mobile:flex-col mobile:justify-center`}
         >
-          <div className="">total: {commify(list.length)}</div>
+          <div className="flex">
+            total: {commify(list.length)}
+            <div
+              className="cursor-pointer text-2xl bg-transparent"
+              onClick={refresh}
+            >
+              <span className="text-4xl">↻</span>
+            </div>
+          </div>
           <div
             className="cursor-pointer text-2xl bg-transparent"
             onClick={refresh}
           >
-            REefresh <span className="text-4xl">↻</span>
+            your Balance: {commify(krwBalance)} $BRAINLETS
           </div>
         </div>
       )}
