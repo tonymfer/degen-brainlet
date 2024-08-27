@@ -20,7 +20,6 @@ export function useERC1155Image({
 
   const { url } = uriToURL(uri);
   const { url: fallbackUrl, handleFallback } = useIpfsImage(url);
-  console.log("fallbackUrl", fallbackUrl, url, uri);
 
   return {
     image: fallbackUrl || url,
@@ -37,8 +36,9 @@ function useUri({ address }: { address?: `0x${string}` | undefined | "" }) {
     const fetchUri = async () => {
       try {
         const nft = mintclub.network("degen").nft(address);
+        const nftName = await nft.getName();
         const uri = await nft.getImageUri();
-        console.log("uri", uri);
+        console.log(nftName, uri);
         setUri(uri);
       } catch (error) {
         console.error("Failed to fetch URI:", error);

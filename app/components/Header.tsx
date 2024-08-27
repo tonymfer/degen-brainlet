@@ -39,9 +39,7 @@ export default function Header() {
               <Button className=" bg-transparent text-black/80">About</Button>
             </Link> */}
             <Link href="/create" className="flex w-fit text-black ">
-              <Button className="w-8 text-2xl h-8 overflow-hidden p-2 aspect-square text-black">
-                +
-              </Button>
+              <Button className=" bg-transparent text-black/80">Create</Button>
             </Link>
           </div>
         </div>

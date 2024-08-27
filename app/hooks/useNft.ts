@@ -18,7 +18,6 @@ export default function useNft(symbolOrAddress?: string) {
   const { image: nftUrl, handleFallback } = useERC1155Image({
     address: data?.address,
   });
-  console.log("nftUrl", nftUrl);
 
   async function fetchData() {
     if (!symbolOrAddress) {

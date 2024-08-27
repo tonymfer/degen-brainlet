@@ -15,9 +15,7 @@ export default function NftImage({
   className?: string;
   onError?: (e: any) => void;
 }) {
-  console.log("image", image);
   const { url, handleFallback } = useIpfsImage(image);
-  console.log("url", url);
 
   const baseClass = tw(
     "relative aspect-square overflow-hidden rounded border-[1px] border-buttonBorder bg-darkGrey object-cover"
