@@ -5,10 +5,14 @@ import { BRAINLET_TOKEN_ADDRESS } from "@/constants";
 import { comicSans, comicSansBold, mferFont } from "@/fonts";
 import useERC20Balance from "@/hooks/useERC20Balance";
 import useNftList from "@/hooks/useNftList";
+import useWallet from "@/hooks/useWallet";
 import { commify } from "mint.club-v2-sdk";
+import Link from "next/link";
 
 export default function Home() {
   const { list, refresh, loading } = useNftList();
+  const { account, connect } = useWallet();
+
   const {
     balance: krwBalance,
     loadingBalance: loadingKrw,
@@ -26,22 +30,37 @@ export default function Home() {
 
       {list.length > 0 && (
         <div
-          className={`flex ${comicSans.className} text-3xl w-full items-center justify-between gap-2 mobile:flex-col mobile:justify-center`}
+          className={`flex ${comicSans.className} sm:flex-row flex-col text-3xl w-full items-center justify-between gap-2`}
         >
-          <div className="flex">
+          <div className="flex gap-4 items-center justify-center">
             total: {commify(list.length)}
-            <div
-              className="cursor-pointer text-2xl bg-transparent"
+            {/* <div
+              className="cursor-pointer border-2 text-2xl leading-none bg-transparent"
               onClick={refresh}
             >
               <span className="text-4xl">↻</span>
-            </div>
+            </div> */}
           </div>
-          <div
-            className="cursor-pointer text-2xl bg-transparent"
-            onClick={refresh}
-          >
-            your Balance: {commify(krwBalance)} $BRAINLETS
+          <div className="relative">
+            <Link
+              href="https://mint.club/token/degen/BRAINLET"
+              passHref
+              className="absolute whitespace-nowrap right-0 top-0 -translate-y-full text-sm"
+            >
+              buy more $BRAINLET ↗️
+            </Link>
+            <div
+              className="cursor-pointer text-xl bg-transparent"
+              onClick={account ? refreshKrw : connect}
+            >
+              {!account ? (
+                <div className="">balance: connect to check</div>
+              ) : loadingKrw ? (
+                <Loading />
+              ) : (
+                "balance: " + commify(Math.floor(krwBalance)) + " 🧠"
+              )}
+            </div>
           </div>
         </div>
       )}
