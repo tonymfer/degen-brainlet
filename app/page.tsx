@@ -15,18 +15,14 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import useSound from "use-sound";
+import bgmSound from "./brainlet-bgm-lofi.mp3";
 import Buddies from "./components/Buddies";
 import Explaination from "./components/Explaination";
 import LongComponent from "./components/LongComponent";
-import { comicSans, comicSansBold, mferFont, rockSalt, sue } from "./fonts";
-import bgmSound from "./brainlet-bgm-lofi.mp3";
-import { BRAINLET_TOKEN_ADDRESS } from "./constants";
-import { degen } from "viem/chains";
-import { useGetUserTokenRoyaltyBalance } from "./hooks/royalties/useGetUserTokenRoyaltyBalance";
-import ClaimModal from "./components/ClaimModal";
+import { comicSans, comicSansBold, mferFont, sue } from "./fonts";
 
 const spring = {
   stiffness: 300,
@@ -42,21 +38,9 @@ export default function Home() {
   const [play, { pause, stop }] = useSound(bgmSound, {
     loop: true,
   });
-  // const [play, { pause, stop }] = useSound("/sounds/brainlet-bgm-lofi.mp3", {
-  //   loop: true,
-  // });
-  const {
-    data: balanceData,
-    isLoading: isLoadingBalance,
-    refetch: refetchBalance,
-  } = useGetUserTokenRoyaltyBalance({
-    reserveToken: BRAINLET_TOKEN_ADDRESS,
-    chainId: degen.id,
-  });
 
   return (
     <main className="flex relative w-full min-h-screen overflow-clip flex-col items-center justify-center">
-      <ClaimModal />
       <div className="flex flex-col relative h-[100vh] items-center w-full justify-center">
         <AnimatePresence>
           {sliceSuccess && (
