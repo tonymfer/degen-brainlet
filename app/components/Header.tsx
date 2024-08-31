@@ -13,10 +13,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount, useDisconnect, useWalletClient } from "wagmi";
 import degenIcon from "@brainlet/degen@2x.png";
 import { shortenNumber } from "mint.club-v2-sdk";
 import { degen } from "viem/chains";
+import { switchToProperNetwork } from "@/utils/web3";
 
 export default function Header() {
   const {
@@ -24,6 +25,12 @@ export default function Header() {
     loadingBalance: loadingBrainlet,
     refresh: refreshBrainlet,
   } = useERC20Balance(BRAINLET_TOKEN_ADDRESS);
+
+  const { address } = useAccount();
+  const { data: walletClient } = useWalletClient({
+    account: address,
+    chainId: degen.id,
+  });
 
   return (
     <div
@@ -104,6 +111,10 @@ export default function Header() {
                       );
                     }
 
+                    if (chain.id !== degen.id && walletClient) {
+                      switchToProperNetwork();
+                    }
+
                     if (chain.unsupported) {
                       return (
                         <button
@@ -117,7 +128,7 @@ export default function Header() {
                     }
 
                     return (
-                      <div style={{ display: "flex", gap: 12 }}>
+                      <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={openChainModal}
                           type="button"
@@ -154,7 +165,7 @@ export default function Header() {
                               useGlobalStore.setState({ collapsed: false })
                             }
                             type="button"
-                            className="border-2 border-black rounded-lg flex flex-col px-2.5 py-1 items-end justify-center"
+                            className=" border-2 border-black px-2.5 py-1 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
                           >
                             <span className="flex items-center justify-center">
                               🤤 {account.displayName}

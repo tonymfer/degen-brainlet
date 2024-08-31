@@ -1,6 +1,7 @@
 import { mintclub, toNumber } from "mint.club-v2-sdk";
 import { useEffect, useState } from "react";
 import { useERC1155Image } from "./useERC1155Image";
+import { useGlobalStore } from "@/stores/global";
 
 export type NftDetail = {
   name: string;
@@ -35,9 +36,13 @@ export default function useNft(symbolOrAddress?: string) {
           priceForNextMint,
           currentSupply,
           maxSupply,
+          reserveBalance,
         },
         steps,
       } = await nft.getDetail();
+      useGlobalStore.setState((state) => ({
+        tvl: new Map(state.tvl).set(token, toNumber(reserveBalance, 18)),
+      }));
       const initialPrice = steps[1].price;
       const initialPriceNumber = toNumber(initialPrice, 18);
       const priceForNextMintNumber = toNumber(priceForNextMint, 18);

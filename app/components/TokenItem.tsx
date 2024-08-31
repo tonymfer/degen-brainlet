@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import NftImage from "./NftImage";
 import useWallet from "@/hooks/useWallet";
 import { useAccount } from "wagmi";
+import { useGlobalStore } from "@/stores/global";
 
 export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
   const { tokenAddress } = props;

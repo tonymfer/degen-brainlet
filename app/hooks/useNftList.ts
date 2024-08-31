@@ -15,7 +15,7 @@ export default function useNftList() {
         .bond.getTokensByReserveToken({
           reserveToken: BRAINLET_TOKEN_ADDRESS,
           start: 0,
-          end: 10000,
+          end: 4000,
         });
 
       const filteredList = list.filter(

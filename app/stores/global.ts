@@ -8,6 +8,7 @@ type GlobalState = {
   myPrice?: number;
   list: `0x${string}`[];
   collapsed: boolean;
+  tvl: Map<string, number>;
 };
 
 export const useGlobalStore = create<GlobalState>((set) => ({
@@ -15,4 +16,5 @@ export const useGlobalStore = create<GlobalState>((set) => ({
   userLoading: true,
   list: [],
   collapsed: true,
+  tvl: new Map(),
 }));
