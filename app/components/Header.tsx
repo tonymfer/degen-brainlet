@@ -33,13 +33,13 @@ export default function Header() {
     <div
       className={`flex absolute top-0 z-[40000] w-screen flex-col justify-between sm:gap-5 py-5 bg-white text-sm md:text-lg padded-horizontal ${comicSansBold.className} md:flex-row`}
     >
-      <div className="flex items-center justify-between gap-5 w-full">
-        <div className="flex items-center gap-5">
+      <div className="flex items-center justify-between gap-1 sm:gap-5 w-full">
+        <div className="flex items-center gap-2">
           <Link href="/">
             <Image src={logo} width={40} height={60} alt="logo" />
           </Link>
 
-          <div className="flex w-fit items-center gap-2">
+          <div className="flex w-fit items-center">
             <Link href="/explooor" className="font-bold text-black">
               <Button className=" bg-transparent text-black/80">
                 Explooor
@@ -49,7 +49,9 @@ export default function Header() {
               <Button className=" bg-transparent text-black/80">About</Button>
             </Link> */}
             <Link href="/create" className="flex w-fit text-black ">
-              <Button className=" bg-transparent text-black/80">Post</Button>
+              <Button className=" bg-transparent text-black/80 text-3xl">
+                +
+              </Button>
             </Link>
           </div>
         </div>
@@ -142,7 +144,7 @@ export default function Header() {
                                 alt={chain.name ?? "Chain icon"}
                                 src={degenIcon}
                                 width={40}
-                                className="w-8"
+                                className="w-5 sm:w-8"
                               />
                             </div>
                           ) : (
@@ -152,7 +154,7 @@ export default function Header() {
 
                         <div className="relative flex flex-col items-end justify-center">
                           {brainletBalance && (
-                            <span className="text-sm absolute bottom-0 right-0 translate-y-full">
+                            <span className="text-xs sm:text-sm absolute bottom-0 right-0 translate-y-full">
                               Balance: {shortenNumber(brainletBalance)} 🧠
                             </span>
                           )}
@@ -162,7 +164,7 @@ export default function Header() {
                               useGlobalStore.setState({ collapsed: false })
                             }
                             type="button"
-                            className=" border-2 border-black px-2.5 py-1 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
+                            className="whitespace-nowrap border-2 border-black px-2.5 py-1 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
                           >
                             <span className="flex items-center justify-center">
                               🤤 {account.displayName}

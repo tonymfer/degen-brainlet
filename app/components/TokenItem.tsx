@@ -35,7 +35,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
     >
       <div className="flex w-full justify-between items-end">
         <div
-          className={`text-xl md:text-2xl text-black text-center ${comicSans.className}`}
+          className={`text-xl md:text-2xl line-clamp-1 text-black text-center ${comicSans.className}`}
         >
           {symbol}
         </div>
@@ -46,12 +46,12 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
       <div
         className={`flex ${isConnected && "border-2"} ${
           balance > 0 ? "border-green-500" : "border-gray-200"
-        } relative w-fit h-fit items-center`}
+        } relative w-full h-full items-center`}
       >
         <NftImage
           image={nftUrl}
           size={300}
-          className="md:w-[300px] md:h-[300px]"
+          className="w-full h-full md:w-[300px] md:h-[300px]"
         />
         {/* <div className="mt-1 bg-white -translate-y-1 absolute top-0 right-0 -translate-x-2 text-xl text-purple-600 font-bold">
           {maxSupply - sold}
@@ -67,8 +67,8 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
           </div>
         )}
       </div>
-      <div className="flex w-full items-center justify-between px-2 text-black">
-        <div className="flex text-xl items-end text-center">
+      <div className="flex w-full text-base sm:text-xl items-center justify-between px-2 text-black">
+        <div className="flex items-end text-center">
           {maxSupply - sold}
           <span className="text-sm mb-0.5 text-black">
             /{commify(maxSupply)}
@@ -76,9 +76,8 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
           {/* <span className="text-base ml-1 text-black">remaining</span> */}
         </div>
         <div className="flex items-center text-center">
-          <span className="mt-1 text-xl font-bold">
-            {commify(Math.floor(price))}{" "}
-            <span className="text-xl font-normal">🧠</span>
+          <span className="mt-1 font-bold">
+            {commify(Math.floor(price))} <span className="font-normal">🧠</span>
           </span>
         </div>
       </div>

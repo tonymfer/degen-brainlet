@@ -13,9 +13,8 @@ export default function Home() {
       <div className="mt-10 padded-horizontal w-full flex items-center justify-center flex-col">
         <InfiniteText />
         <div className={`${comicSansBold.className} text-xl md:text-5xl `}>
-          Brruuy Brainlets with $BRAINLETS 🤤🤤{" "}
+          Explooor Brainlets🤤🤤{" "}
         </div>
-
         <InfiniteText direction="right" />
       </div>
 

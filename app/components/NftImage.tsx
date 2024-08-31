@@ -35,7 +35,7 @@ export default function NftImage({
         width={400}
         height={400}
         // unoptimized={image?.includes?.(".gif")}
-        className="max-h-full w-full h-full max-w-full object-contain"
+        className="min-h-full w-full h-full min-w-full object-contain"
         onError={handleFallback}
         // fill
       />

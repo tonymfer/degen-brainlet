@@ -22,16 +22,16 @@ export default function ClaimModal() {
     chainId: degen.id,
   });
   const size = useWindowSize();
-  const { isConnected } = useAccount();
+  const { address } = useAccount();
 
   useEffect(() => {
     if (data && toNumber(data, 18) > 0) {
       useGlobalStore.setState({ showRoyaltyPopup: true });
     }
-    if (!isConnected) {
+    if (!address) {
       useGlobalStore.setState({ showRoyaltyPopup: false });
     }
-  }, [data, isConnected]);
+  }, [data, address]);
 
   return (
     <>
