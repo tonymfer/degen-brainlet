@@ -4,20 +4,17 @@ import Button from "@/components/Button";
 import { BRAINLET_TOKEN_ADDRESS } from "@/constants";
 import { comicSans, comicSansBold } from "@/fonts";
 import useERC20Balance from "@/hooks/useERC20Balance";
-import useProfile from "@/hooks/useProfile";
-import useWallet from "@/hooks/useWallet";
 import { useGlobalStore } from "@/stores/global";
-import { abbreviateAddress } from "@/utils/strings";
+import { switchToProperNetwork } from "@/utils/web3";
+import degenIcon from "@brainlet/degen@2x.png";
 import logo from "@brainlet/logo.png";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { shortenNumber } from "mint.club-v2-sdk";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useDisconnect, useWalletClient } from "wagmi";
-import degenIcon from "@brainlet/degen@2x.png";
-import { shortenNumber } from "mint.club-v2-sdk";
 import { degen } from "viem/chains";
-import { switchToProperNetwork } from "@/utils/web3";
+import { useAccount, useDisconnect, useWalletClient } from "wagmi";
 
 export default function Header() {
   const {

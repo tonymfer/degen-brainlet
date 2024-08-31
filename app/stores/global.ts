@@ -9,6 +9,7 @@ type GlobalState = {
   list: `0x${string}`[];
   collapsed: boolean;
   tvl: Map<string, number>;
+  showRoyaltyPopup: boolean;
 };
 
 export const useGlobalStore = create<GlobalState>((set) => ({
@@ -17,4 +18,5 @@ export const useGlobalStore = create<GlobalState>((set) => ({
   list: [],
   collapsed: true,
   tvl: new Map(),
+  showRoyaltyPopup: false,
 }));

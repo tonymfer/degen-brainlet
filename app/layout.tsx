@@ -8,6 +8,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import ClaimModal from "./components/ClaimModal";
 
 const title = "Brainlets on DegenL3";
 const description = "Brainlet L3 is the future of finance 🤤";
@@ -72,6 +73,7 @@ export default function RootLayout({
           <Header />
           <div className="relative z-10 overflow-y-scroll text-black hide-scrollbar flex h-full w-full flex-col">
             {children}
+            <ClaimModal />
           </div>
         </Providers>
       </body>

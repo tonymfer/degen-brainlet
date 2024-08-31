@@ -1,47 +1,31 @@
 "use client";
 
+import Buddies from "@/components/Buddies";
 import Button from "@/components/Button";
-import useCreate from "@hooks/useCreate";
-import useProfile from "@hooks/useProfile";
-import useWallet from "@hooks/useWallet";
+import { comicSans } from "@/fonts";
 import { uploadImage, uploadMetadata } from "@/server/ipfs";
-import { useGlobalStore } from "@/stores/global";
-import { abbreviateAddress } from "@/utils/strings";
+import logo from "@brainlet/logo.png";
+import useCreate from "@hooks/useCreate";
 import { useDebounce } from "@uidotdev/usehooks";
 import Image from "next/image";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
-import Buddies from "@/components/Buddies";
-import { comicSans } from "@/fonts";
-import Loading from "@/components/Loading";
-import logo from "@brainlet/logo.png";
+import { useAccount } from "wagmi";
 
 export default function CreatePage() {
   const router = useRouter();
-  const { account, isUserLoading, change } = useWallet();
   const uploadRef = useRef<HTMLInputElement>(null);
   const [username, setUsername] = useState("");
   const [file, setFile] = useState<Blob | null>(null);
   const [imgUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const debouncedUsername = useDebounce(username, 150);
+  const { address: account } = useAccount();
   const usernameLoading = debouncedUsername !== username;
   const [createSuccess, setCreateSuccess] = useState(false);
   const { createProfile, checkingUsername, exists } =
     useCreate(debouncedUsername);
-
-  if (!account) {
-    useGlobalStore.setState({ collapsed: false });
-  }
-
-  if (isUserLoading) {
-    return (
-      <div className="flex h-full w-full justify-center text-2xl">
-        <Loading />
-      </div>
-    );
-  }
 
   return (
     <div
