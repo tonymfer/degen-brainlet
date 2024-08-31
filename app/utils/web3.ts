@@ -26,9 +26,9 @@ export async function switchToProperNetwork() {
     );
 
     if (switched) {
-      // toastSuccess(`Switched network to ${switched.name}`);
+      toast.success("Switched to Degen network");
     } else {
-      throw new HandledError(
+      toast.error(
         "Failed to switch network. Your wallet may not support multiple chains."
       );
     }
