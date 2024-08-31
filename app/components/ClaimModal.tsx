@@ -55,7 +55,7 @@ export default function ClaimModal() {
                 scale: 1,
                 rotate: 1080,
               }}
-              transition={{ duration: 1.5, ease: "linear" }}
+              transition={{ duration: 1, ease: "linear" }}
               className={`w-[300px] bg-green-500 p-4 ${comicSans.className} h-[200px] border-2 border-black text-center flex flex-col items-center justify-center  z-40`}
             >
               <div className="text-xl flex flex-col">
