@@ -11,6 +11,7 @@ import Confetti from "react-confetti";
 import { degen } from "viem/chains";
 import { useAccount } from "wagmi";
 import Button from "./Button";
+import { toNumber } from "mint.club-v2-sdk";
 
 export default function ClaimModal() {
   const showRoyaltyPopup = useGlobalStore((state) => state.showRoyaltyPopup);
@@ -24,7 +25,7 @@ export default function ClaimModal() {
   const { isConnected } = useAccount();
 
   useEffect(() => {
-    if (data && data !== 0n) {
+    if (data && toNumber(data, 18) > 0) {
       useGlobalStore.setState({ showRoyaltyPopup: true });
     }
     if (!isConnected) {
