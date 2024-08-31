@@ -7,13 +7,14 @@ import { commify, shortenNumber } from "mint.club-v2-sdk";
 import { useRouter } from "next/navigation";
 import NftImage from "./NftImage";
 import useWallet from "@/hooks/useWallet";
+import { useAccount } from "wagmi";
 
 export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
   const { tokenAddress } = props;
   const { data, loading, nftUrl } = useNft(tokenAddress);
   const { balance } = useNftBalance(tokenAddress);
   const router = useRouter();
-  const { account } = useWallet();
+  const { isConnected } = useAccount();
 
   if (loading || !data) {
     return (
@@ -42,7 +43,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
         </div>
       </div>
       <div
-        className={`flex ${account && "border-2"} ${
+        className={`flex ${isConnected && "border-2"} ${
           balance > 0 ? "border-green-500" : "border-gray-200"
         } relative w-fit h-fit items-center`}
       >
@@ -61,7 +62,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
               balance > 0 ? "bg-green-500" : "bg-gray-400"
             } absolute bottom-0 right-0 text-xl text-white px-2 font-bold`}
           >
-            {account && `holding: ${shortenNumber(balance)}`}
+            {isConnected && `holding: ${shortenNumber(balance)}`}
           </div>
         )}
       </div>

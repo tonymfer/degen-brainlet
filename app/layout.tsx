@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import Header from "./components/Header";
 import ClientToaster from "./components/Toaster";
+import { config, Providers } from "../Providers";
+import { WagmiProvider } from "wagmi";
+import "@rainbow-me/rainbowkit/styles.css";
+
+import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const title = "Brainlets on DegenL3";
 const description = "Brainlet L3 is the future of finance 🤤";
@@ -52,6 +58,8 @@ export const metadata: Metadata = {
   },
 };
 
+const queryClient = new QueryClient();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -60,10 +68,12 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <Header />
-        <div className="relative z-10 overflow-y-scroll text-black hide-scrollbar flex h-full w-full flex-col">
-          {children}
-        </div>
+        <Providers>
+          <Header />
+          <div className="relative z-10 overflow-y-scroll text-black hide-scrollbar flex h-full w-full flex-col">
+            {children}
+          </div>
+        </Providers>
       </body>
       <ClientToaster />
     </html>

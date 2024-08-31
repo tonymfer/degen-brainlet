@@ -45,11 +45,11 @@ export default function Home() {
             <Link
               href="https://mint.club/token/degen/BRAINLET"
               passHref
-              className="absolute whitespace-nowrap right-0 top-0 -translate-y-full text-sm"
+              className="absolute whitespace-nowrap right-0 top-0 -translate-y-full text-lg underline-offset-2 underline"
             >
               buy more $BRAINLET ↗️
             </Link>
-            <div
+            {/* <div
               className="cursor-pointer text-xl bg-transparent"
               onClick={account ? refreshKrw : connect}
             >
@@ -60,12 +60,12 @@ export default function Home() {
               ) : (
                 "balance: " + commify(Math.floor(krwBalance)) + " 🧠"
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       )}
 
-      <div className="mt-5 md:flex w-full gap-3 md:flex-wrap grid grid-cols-2 md:justify-start sm:mt-10 ">
+      <div className="mt-5 md:flex w-full gap-3 md:flex-wrap grid grid-cols-2 md:justify-between sm:mt-10 ">
         {!list ? (
           <Loading />
         ) : (

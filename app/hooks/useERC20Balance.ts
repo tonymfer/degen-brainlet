@@ -3,14 +3,15 @@ import { ERC20_ABI, mintclub, toNumber } from "mint.club-v2-sdk";
 import { useEffect, useState } from "react";
 import { createPublicClient, http } from "viem";
 import { base } from "viem/chains";
+import { useAccount } from "wagmi";
 
 export default function useERC20Balance(tokenAddress: `0x${string}`) {
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
-  const { account } = useWallet();
+  const { address } = useAccount();
 
   async function getBalance() {
-    if (tokenAddress && account) {
+    if (tokenAddress && address) {
       setLoading(true);
       try {
         // using viem
@@ -33,14 +34,14 @@ export default function useERC20Balance(tokenAddress: `0x${string}`) {
         //   ],
         //   address: tokenAddress,
         //   functionName: 'balanceOf',
-        //   args: [account],
+        //   args: [address],
         // });
 
         // 이거를 좀더 쉽게 SDK 로 호출하려면 👇
         const balance = await mintclub
           .network("degen")
           .token(tokenAddress)
-          .getBalanceOf(account);
+          .getBalanceOf(address);
 
         setBalance(toNumber(balance, 18));
         setLoading(false);
@@ -54,7 +55,7 @@ export default function useERC20Balance(tokenAddress: `0x${string}`) {
   useEffect(() => {
     getBalance();
     // eslint-disable-next-line
-  }, [tokenAddress, account]);
+  }, [tokenAddress, address]);
 
   return { balance, loadingBalance: loading, refresh: getBalance };
 }

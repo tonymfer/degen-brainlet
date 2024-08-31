@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAccount } from "wagmi";
 
 export default function Detail() {
   const { symbol: _symbol } = useParams<{ symbol: string }>();
@@ -123,7 +124,6 @@ function BuySellButtons(
 ) {
   const [tradeType, setTradeType] = useState<"buy" | "sell" | null>(null);
   const [input, setInput] = useState(0);
-  const { account } = useWallet();
   const { tokenAddress, data, refresh: refreshToken, refreshBalance } = props;
   const { maxSupply, sold } = data;
   const {
@@ -131,6 +131,7 @@ function BuySellButtons(
     loadingBalance: loadingKrw,
     refresh: refreshKrw,
   } = useERC20Balance(BRAINLET_TOKEN_ADDRESS);
+  const { address, isConnected } = useAccount();
 
   const { buy, sell, estimating, txLoading, estimation } = useBuySell(
     tradeType,
@@ -208,7 +209,7 @@ function BuySellButtons(
           className="w-full bg-green-500 text-black"
           loading={estimating || txLoading}
           spinnerColor="grey"
-          disabled={!account || !input || !!notEnoughBalance}
+          disabled={!isConnected || !input || !!notEnoughBalance}
           onClick={async () => {
             console.log("buy or sell");
             try {
@@ -247,7 +248,7 @@ function BuySellButtons(
     </div>
   ) : (
     <div className="relative w-full mt-5 flex-col flex gap-2 text-sm">
-      {!account ? (
+      {!isConnected ? (
         <Button
           className=" px-2.5 py-2 bg-gradient-to-r max-w-full font-thin rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
           onClick={() => useGlobalStore.setState({ collapsed: false })}

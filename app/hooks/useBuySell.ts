@@ -2,6 +2,10 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { mintclub, toNumber, wei } from "mint.club-v2-sdk";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { config } from "../../Providers";
+import { useAccount, useDisconnect, useWalletClient } from "wagmi";
+import { DEGEN_CHAIN_ID } from "@/constants";
+import { degen } from "viem/chains";
 
 export default function useBuySell(
   tradeType: "buy" | "sell" | null,
@@ -12,6 +16,12 @@ export default function useBuySell(
   const [estimating, setEstimating] = useState(false);
   const [estimation, setEstimation] = useState(0);
   const debounced = useDebounce(amount, 500);
+  const { address } = useAccount();
+
+  const { data: walletClient } = useWalletClient({
+    account: address,
+    chainId: DEGEN_CHAIN_ID,
+  });
 
   async function estimate() {
     try {
@@ -57,6 +67,7 @@ export default function useBuySell(
       // TODO: Mission 7: buy NFT using sdk
       // https://sdk.mint.club/docs/sdk/network/nft/buy
       await mintclub
+        .withWalletClient({ ...walletClient, chain: degen } as any)
         .network("degen")
         .nft(tokenAddress)
         .buy({
@@ -94,6 +105,7 @@ export default function useBuySell(
       // https://sdk.mint.club/docs/sdk/network/nft/sell
 
       await mintclub
+        .withWalletClient({ ...walletClient, chain: degen } as any)
         .network("degen")
         .nft(tokenAddress)
         .sell({

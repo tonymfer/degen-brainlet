@@ -1,13 +1,20 @@
 "use client";
 
-import { BRAINLET_TOKEN_ADDRESS } from "@/constants";
+import { BRAINLET_TOKEN_ADDRESS, DEGEN_CHAIN_ID } from "@/constants";
 import { mintclub } from "mint.club-v2-sdk";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { degen } from "viem/chains";
+import { useAccount, useWalletClient } from "wagmi";
 
 export default function useCreate(symbol: string) {
   const [checkingUsername, setCheckingUsername] = useState(false);
   const [exists, setExists] = useState(false);
+  const { address } = useAccount();
+  const { data: walletClient } = useWalletClient({
+    account: address,
+    chainId: DEGEN_CHAIN_ID,
+  });
 
   async function createProfile(
     metadataUrl: `ipfs://${string}`,
@@ -20,6 +27,7 @@ export default function useCreate(symbol: string) {
     ] as any;
     try {
       await mintclub
+        .withWalletClient({ ...walletClient, chain: degen } as any)
         .network("degen")
         .nft(symbol)
         .create({

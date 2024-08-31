@@ -12,12 +12,19 @@ import logo from "@brainlet/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useDisconnect } from "wagmi";
+import degenIcon from "@brainlet/degen@2x.png";
+import { shortenNumber } from "mint.club-v2-sdk";
 
 export default function Header() {
   const setCollapsed = (collapsed: boolean) =>
     useGlobalStore.setState({ collapsed });
-  const { account, connect, disconnect, change } = useWallet();
-  useProfile();
+  const {
+    balance: brainletBalance,
+    loadingBalance: loadingBrainlet,
+    refresh: refreshBrainlet,
+  } = useERC20Balance(BRAINLET_TOKEN_ADDRESS);
 
   return (
     <div
@@ -44,7 +51,7 @@ export default function Header() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
+          {/* <Button
             className=" px-4 py-2 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
             onClick={() => useGlobalStore.setState({ collapsed: false })}
           >
@@ -53,7 +60,116 @@ export default function Header() {
             ) : (
               <div className="text-black">Connect Wallet</div>
             )}
-          </Button>
+          </Button> */}
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openAccountModal,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              // Note: If your app doesn't use authentication, you
+              // can remove all 'authenticationStatus' checks
+              const ready = mounted && authenticationStatus !== "loading";
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === "authenticated");
+
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button">
+                          Connect Wallet
+                        </button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <button onClick={openChainModal} type="button">
+                          Wrong network
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <div style={{ display: "flex", gap: 12 }}>
+                        <button
+                          onClick={openChainModal}
+                          style={{ display: "flex", alignItems: "center" }}
+                          type="button"
+                        >
+                          {chain.hasIcon && (
+                            <div
+                              style={{
+                                background: chain.iconBackground,
+                                width: 12,
+                                height: 12,
+                                borderRadius: 999,
+                                overflow: "hidden",
+                                marginRight: 4,
+                              }}
+                            >
+                              {chain.iconUrl && (
+                                <Image
+                                  alt={chain.name ?? "Chain icon"}
+                                  src={degenIcon}
+                                  style={{ width: 12, height: 12 }}
+                                />
+                              )}
+                            </div>
+                          )}
+                        </button>
+
+                        <button
+                          // onClick={openAccountModal}
+                          onClick={() =>
+                            useGlobalStore.setState({ collapsed: false })
+                          }
+                          type="button"
+                          className="border-2 border-black flex flex-col px-2.5 py-1 items-end justify-center"
+                        >
+                          <span className="flex items-center justify-center">
+                            <Image
+                              src={degenIcon}
+                              width={25}
+                              height={25}
+                              className="rounded-full mr-2 border border-black"
+                              alt="logo"
+                            />
+                            {account.displayName}
+                          </span>
+                          {brainletBalance && (
+                            <span className="text-sm">
+                              {" "}
+                              {shortenNumber(brainletBalance)} $BRAINLET
+                            </span>
+                          )}
+                        </button>
+                      </div>
+                    );
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
         </div>
       </div>
 
@@ -67,9 +183,10 @@ function HeaderButtons() {
   const collapsed = useGlobalStore((state) => state.collapsed);
   const setCollapsed = (collapsed: boolean) =>
     useGlobalStore.setState({ collapsed });
-  const { account, connect, disconnect, change } = useWallet();
   const { balance } = useERC20Balance(BRAINLET_TOKEN_ADDRESS);
   const router = useRouter();
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
   return (
     <>
       {!collapsed && (
@@ -79,13 +196,8 @@ function HeaderButtons() {
           />
           <div className="fixed w-[300px] h-[400px] bg-white border-2 -translate-y-1/2 border-black top-1/2 text-center flex flex-col items-center justify-center left-1/2 z-40 -translate-x-1/2">
             <Image src={logo} width={60} height={100} alt="logo" />
-            {account ? (
+            {address ? (
               <>
-                <Button className="border-2 bg-transparent text-black">
-                  <span className="text-gray-500">
-                    {abbreviateAddress(account)}
-                  </span>
-                </Button>
                 <Button
                   onClick={() => {
                     router.push(`/dashboard`);
@@ -94,15 +206,7 @@ function HeaderButtons() {
                 >
                   Dashboard
                 </Button>
-                <Button
-                  className="bg-transparent text-black"
-                  onClick={() => {
-                    change();
-                    setCollapsed(true);
-                  }}
-                >
-                  Change Wallet
-                </Button>
+                {/* <ConnectButton /> */}
                 <Button
                   className="bg-transparent text-black"
                   onClick={() => {
@@ -115,12 +219,7 @@ function HeaderButtons() {
               </>
             ) : (
               <>
-                <Button
-                  className=" px-2.5 py-2 bg-gradient-to-r max-w-full font-thin rounded-2xl from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
-                  onClick={connect}
-                >
-                  Connect Wallet
-                </Button>
+                <ConnectButton />
               </>
             )}
             <Button

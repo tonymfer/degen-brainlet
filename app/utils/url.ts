@@ -12,11 +12,9 @@ export function uriToURL(urlOrHash?: string): {
   url: string;
   protocol: "https" | "ipfs" | undefined;
 } {
-  if (urlOrHash?.startsWith("ipfs://")) {
-    urlOrHash = urlOrHash?.replace("ipfs://", "");
+  if (urlOrHash) {
+    urlOrHash = urlOrHash.replace(/^ipfs:\/\//, "");
     return { url: `${MCV2_IPFS_GATEWAY}${urlOrHash}`, protocol: "ipfs" };
-  } else if (urlOrHash?.startsWith("https://")) {
-    return { url: urlOrHash, protocol: "https" };
   }
 
   return { url: "", protocol: undefined };

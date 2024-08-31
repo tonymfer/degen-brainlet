@@ -1,20 +1,22 @@
+import { DEGEN_CHAIN_ID } from "@/constants";
 import useWallet from "@/hooks/useWallet";
 import { mintclub } from "mint.club-v2-sdk";
 import { useEffect, useState } from "react";
+import { useAccount, useWalletClient } from "wagmi";
 
 export default function useNftBalance(symbolOrAddress?: string) {
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
-  const { account } = useWallet();
+  const { address } = useAccount();
 
   async function getBalance() {
-    if (symbolOrAddress && account) {
+    if (symbolOrAddress && address) {
       setLoading(true);
       try {
         const balance = await mintclub
           .network("degen")
           .nft(symbolOrAddress)
-          .getBalanceOf(account);
+          .getBalanceOf(address);
 
         setBalance(Number(balance));
         setLoading(false);
@@ -28,7 +30,7 @@ export default function useNftBalance(symbolOrAddress?: string) {
   useEffect(() => {
     getBalance();
     // eslint-disable-next-line
-  }, [symbolOrAddress, account]);
+  }, [symbolOrAddress, address]);
 
   return { balance, loadingBalance: loading, refresh: getBalance };
 }
