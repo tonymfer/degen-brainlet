@@ -16,10 +16,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect } from "wagmi";
 import degenIcon from "@brainlet/degen@2x.png";
 import { shortenNumber } from "mint.club-v2-sdk";
+import { degen } from "viem/chains";
 
 export default function Header() {
-  const setCollapsed = (collapsed: boolean) =>
-    useGlobalStore.setState({ collapsed });
   const {
     balance: brainletBalance,
     loadingBalance: loadingBrainlet,
@@ -95,16 +94,24 @@ export default function Header() {
                   {(() => {
                     if (!connected) {
                       return (
-                        <button onClick={openConnectModal} type="button">
-                          Connect Wallet
+                        <button
+                          onClick={openConnectModal}
+                          type="button"
+                          className="border-2 rounded-lg border-black flex flex-col px-2.5 py-1 items-end justify-center"
+                        >
+                          Connect 🎩
                         </button>
                       );
                     }
 
                     if (chain.unsupported) {
                       return (
-                        <button onClick={openChainModal} type="button">
-                          Wrong network
+                        <button
+                          onClick={openChainModal}
+                          type="button"
+                          className="border-2 rounded-lg border-black flex flex-col px-2.5 py-1 items-end justify-center"
+                        >
+                          Wrong network 🤤
                         </button>
                       );
                     }
@@ -113,56 +120,47 @@ export default function Header() {
                       <div style={{ display: "flex", gap: 12 }}>
                         <button
                           onClick={openChainModal}
-                          style={{ display: "flex", alignItems: "center" }}
                           type="button"
+                          className="border-2 w-fit h-fit rounded-full border-black flex flex-col items-center justify-center"
                         >
-                          {chain.hasIcon && (
+                          {chain.id === degen.id ? (
                             <div
                               style={{
                                 background: chain.iconBackground,
-                                width: 12,
-                                height: 12,
-                                borderRadius: 999,
                                 overflow: "hidden",
-                                marginRight: 4,
                               }}
                             >
-                              {chain.iconUrl && (
-                                <Image
-                                  alt={chain.name ?? "Chain icon"}
-                                  src={degenIcon}
-                                  style={{ width: 12, height: 12 }}
-                                />
-                              )}
+                              <Image
+                                alt={chain.name ?? "Chain icon"}
+                                src={degenIcon}
+                                width={40}
+                                className="w-8"
+                              />
                             </div>
+                          ) : (
+                            <div>Swith Chain</div>
                           )}
                         </button>
 
-                        <button
-                          // onClick={openAccountModal}
-                          onClick={() =>
-                            useGlobalStore.setState({ collapsed: false })
-                          }
-                          type="button"
-                          className="border-2 border-black flex flex-col px-2.5 py-1 items-end justify-center"
-                        >
-                          <span className="flex items-center justify-center">
-                            <Image
-                              src={degenIcon}
-                              width={25}
-                              height={25}
-                              className="rounded-full mr-2 border border-black"
-                              alt="logo"
-                            />
-                            {account.displayName}
-                          </span>
+                        <div className="relative flex flex-col items-end justify-center">
                           {brainletBalance && (
-                            <span className="text-sm">
-                              {" "}
-                              {shortenNumber(brainletBalance)} $BRAINLET
+                            <span className="text-sm absolute bottom-0 right-0 translate-y-full">
+                              Balance: {shortenNumber(brainletBalance)} 🧠
                             </span>
                           )}
-                        </button>
+                          <button
+                            // onClick={openAccountModal}
+                            onClick={() =>
+                              useGlobalStore.setState({ collapsed: false })
+                            }
+                            type="button"
+                            className="border-2 border-black rounded-lg flex flex-col px-2.5 py-1 items-end justify-center"
+                          >
+                            <span className="flex items-center justify-center">
+                              🤤 {account.displayName}
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     );
                   })()}

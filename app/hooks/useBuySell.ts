@@ -3,9 +3,17 @@ import { mintclub, toNumber, wei } from "mint.club-v2-sdk";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { config } from "../../Providers";
-import { useAccount, useDisconnect, useWalletClient } from "wagmi";
+import {
+  useAccount,
+  useChainId,
+  useConnect,
+  useDisconnect,
+  useWalletClient,
+} from "wagmi";
 import { DEGEN_CHAIN_ID } from "@/constants";
 import { degen } from "viem/chains";
+import { switchChain } from "viem/actions";
+import { switchToProperNetwork } from "@/utils/web3";
 
 export default function useBuySell(
   tradeType: "buy" | "sell" | null,
@@ -17,6 +25,8 @@ export default function useBuySell(
   const [estimation, setEstimation] = useState(0);
   const debounced = useDebounce(amount, 500);
   const { address } = useAccount();
+  const chain = useChainId();
+  const { connect } = useConnect({ config: config });
 
   const { data: walletClient } = useWalletClient({
     account: address,
@@ -64,6 +74,9 @@ export default function useBuySell(
   async function buy(onSuccess: () => void) {
     try {
       setLoading(true);
+      if (chain !== DEGEN_CHAIN_ID && walletClient) {
+        switchToProperNetwork();
+      }
       // TODO: Mission 7: buy NFT using sdk
       // https://sdk.mint.club/docs/sdk/network/nft/buy
       await mintclub
@@ -101,8 +114,9 @@ export default function useBuySell(
   async function sell(onSuccess: () => void) {
     try {
       setLoading(true);
-      // TODO: Mission 8: sell NFT using sdk
-      // https://sdk.mint.club/docs/sdk/network/nft/sell
+      if (chain !== DEGEN_CHAIN_ID && walletClient) {
+        switchToProperNetwork();
+      }
 
       await mintclub
         .withWalletClient({ ...walletClient, chain: degen } as any)
