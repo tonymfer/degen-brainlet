@@ -90,7 +90,7 @@ export default function useBuySell(
           onSuccess,
           onError: (e: any) => {
             console.error(e);
-            toast.error("Purchase failed. Please check the console");
+            toast.error(e.message);
           },
         });
     } finally {
@@ -128,7 +128,7 @@ export default function useBuySell(
           onSuccess,
           onError: (e: any) => {
             console.error(e);
-            toast.error("Sale failed. Please check the console");
+            toast.error(e.message);
           },
         });
     } finally {
