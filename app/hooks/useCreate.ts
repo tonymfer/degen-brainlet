@@ -38,14 +38,14 @@ export default function useCreate(symbol: string) {
           },
           curveData: {
             curveType,
-            stepCount: 60, // how granular the curve is
-            maxSupply: 69, // NFT max supply
-            initialMintingPrice: 69000, // starting price, 천원
-            finalMintingPrice: 6_900_000, // ending price, 일억
-            creatorAllocation: 1, // initial supply to the deployer = 1 = self follow
+            stepCount: 60,
+            maxSupply: 69,
+            initialMintingPrice: 69000,
+            finalMintingPrice: 6_900_000,
+            creatorAllocation: 1,
           },
-          buyRoyalty: 6.9, // 10% of the buy price goes to the creator
-          sellRoyalty: 6.9, // 10% of the sell price goes to the creator
+          buyRoyalty: 6.9,
+          sellRoyalty: 6.9,
           metadataUrl,
           onSuccess,
           onError,
@@ -58,9 +58,6 @@ export default function useCreate(symbol: string) {
 
   async function checkExisting(symbol: string) {
     setCheckingUsername(true);
-    // TODO: Mission 5: check if NFT exists using sdk
-    // https://sdk.mint.club/docs/sdk/network/token-nft/exists
-    // 이미 같은 심볼로 발행된 NFT 는 발행 불가능. 유저이름으로 사용.
     const exists = await mintclub.network("degen").nft(symbol).exists();
     setCheckingUsername(false);
     return exists;

@@ -1,19 +1,12 @@
-import { useDebounce } from "@uidotdev/usehooks";
-import { mintclub, toNumber, wei } from "mint.club-v2-sdk";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { config } from "../../Providers";
-import {
-  useAccount,
-  useChainId,
-  useConnect,
-  useDisconnect,
-  useWalletClient,
-} from "wagmi";
 import { DEGEN_CHAIN_ID } from "@/constants";
-import { degen } from "viem/chains";
-import { switchChain } from "viem/actions";
 import { switchToProperNetwork } from "@/utils/web3";
+import { useDebounce } from "@uidotdev/usehooks";
+import { mintclub, toNumber } from "mint.club-v2-sdk";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { degen } from "viem/chains";
+import { useAccount, useChainId, useConnect, useWalletClient } from "wagmi";
+import { config } from "../../Providers";
 
 export default function useBuySell(
   tradeType: "buy" | "sell" | null,
@@ -77,8 +70,6 @@ export default function useBuySell(
       if (chain !== DEGEN_CHAIN_ID && walletClient) {
         switchToProperNetwork();
       }
-      // TODO: Mission 7: buy NFT using sdk
-      // https://sdk.mint.club/docs/sdk/network/nft/buy
       await mintclub
         .withWalletClient({ ...walletClient, chain: degen } as any)
         .network("degen")

@@ -56,16 +56,6 @@ export default function Header() {
           </div>
         </div>
         <div className="flex gap-2">
-          {/* <Button
-            className=" px-4 py-2 bg-gradient-to-r max-w-full font-thin rounded-lg from-[#15f9ea] via-[#bba0ff] to-[#F2FD33]"
-            onClick={() => useGlobalStore.setState({ collapsed: false })}
-          >
-            {account ? (
-              <div className="text-black">{abbreviateAddress(account)}</div>
-            ) : (
-              <div className="text-black">Connect Wallet</div>
-            )}
-          </Button> */}
           <ConnectButton.Custom>
             {({
               account,
@@ -76,8 +66,6 @@ export default function Header() {
               authenticationStatus,
               mounted,
             }) => {
-              // Note: If your app doesn't use authentication, you
-              // can remove all 'authenticationStatus' checks
               const ready = mounted && authenticationStatus !== "loading";
               const connected =
                 ready &&
@@ -159,7 +147,6 @@ export default function Header() {
                             </span>
                           )}
                           <button
-                            // onClick={openAccountModal}
                             onClick={() =>
                               useGlobalStore.setState({ collapsed: false })
                             }
@@ -214,7 +201,6 @@ function HeaderButtons() {
                 >
                   Dashboard
                 </Button>
-                {/* <ConnectButton /> */}
                 <Button
                   className="bg-transparent text-black"
                   onClick={() => {

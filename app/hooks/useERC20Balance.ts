@@ -14,30 +14,6 @@ export default function useERC20Balance(tokenAddress: `0x${string}`) {
     if (tokenAddress && address) {
       setLoading(true);
       try {
-        // using viem
-        // const publicClient = createPublicClient({
-        //   chain: base,
-        //   transport: http('https://mainnet.base.org'),
-        // });
-
-        // const balance = await publicClient.readContract({
-        //   abi: [
-        //     {
-        //       constant: true,
-        //       inputs: [{ name: '_owner', type: 'address' }],
-        //       name: 'balanceOf',
-        //       outputs: [{ name: 'balance', type: 'uint256' }],
-        //       payable: false,
-        //       stateMutability: 'view',
-        //       type: 'function',
-        //     },
-        //   ],
-        //   address: tokenAddress,
-        //   functionName: 'balanceOf',
-        //   args: [address],
-        // });
-
-        // 이거를 좀더 쉽게 SDK 로 호출하려면 👇
         const balance = await mintclub
           .network("degen")
           .token(tokenAddress)
