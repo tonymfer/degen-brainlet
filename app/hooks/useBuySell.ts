@@ -67,9 +67,9 @@ export default function useBuySell(
   async function buy(onSuccess: () => void) {
     try {
       setLoading(true);
-      if (chain !== DEGEN_CHAIN_ID && walletClient) {
-        switchToProperNetwork();
-      }
+      // if (chain !== DEGEN_CHAIN_ID && walletClient) {
+      //   // switchToProperNetwork();
+      // }
       await mintclub
         .withWalletClient({ ...walletClient, chain: degen } as any)
         .network("degen")
