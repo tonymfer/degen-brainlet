@@ -35,7 +35,7 @@ export default function TokenItem(props: { tokenAddress: `0x${string}` }) {
     >
       <div className="flex w-full justify-between items-end">
         <div
-          className={`text-xl md:text-2xl line-clamp-1 text-black text-center ${comicSans.className}`}
+          className={`text-lg md:text-xl text-ellipsis line-clamp-1 text-black text-center ${comicSans.className}`}
         >
           {symbol}
         </div>
